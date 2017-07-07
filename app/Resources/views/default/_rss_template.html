@@ -1,0 +1,61 @@
+<script id="template" type="text/template">
+
+    <div class="col bs-callout box">
+        <div class="row">
+            <div class="col-11">
+                <strong>
+                    <a href="[[ link ]]" target="_blank">
+                        [[ title ]]
+                    </a>
+                </strong>
+            </div>
+            <div class="col-1 pull-right">
+                <small>
+                    [[#sentiment]]<span class="badge badge-sentiment">[[ sentiment.score ]]</span>[[/sentiment]]
+                    [[^sentiment]]<span class="badge badge-sentiment">0</span>[[/sentiment]]
+                </small>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <a href="[[ link ]]" target="_blank">
+                    <img src="[[ image ]]" class="rounded img-fluid m-x-auto d-block" />
+                </a>
+            </div>
+            <div class="col-8">
+                [[ description ]]
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <img style="width: 20px;" src="[[ source.logo ]]" class="rounded" />
+                        <small>
+                            <strong>
+                                <a class="text-muted" href="[[ source.url ]]" target="_blank">
+                                    [[ source.title ]]
+                                </a>
+                            </strong>
+                        </small>
+                    </div>
+                    <div class="col text-right">
+                        <p class="text-muted">
+                            <small>[[ formattedDate ]]</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

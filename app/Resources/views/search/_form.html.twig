@@ -1,0 +1,32 @@
+<div id="form_search">
+    {{ form_start(form, {'action': path('search'), 'method': 'POST', attr: {id: 'search', class: 'form-inline', novalidate: 'novalidate'}}) }}
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            {{ include('default/_flash.html.twig') }}
+
+            {{ form_errors(form) }}
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                {{ form_row(form.title) }}
+            </div>
+
+            {{ form_rest(form) }}
+        </div>
+    </div>
+
+    <!--button type="submit" class="btn btn-sm btn-outline-primary">Pretraga</button-->
+
+    {{ form_end(form) }}
+</div>
+
+<!--script>
+    $('body').on('submit', '#search', function (e) {
+
+        e.preventDefault();
+
+        var search = document.getElementById("search_title").value;
+        $('#marker').empty();
+        ws.send('[{"title": "'+search+'"}]');
+    });
+</script-->

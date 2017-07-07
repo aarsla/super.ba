@@ -1,0 +1,61 @@
+<div class="col bs-callout box">
+    <div class="row">
+        <div class="col-12">
+            <strong>
+                <a href="{{  path('homepage') }}" target="_blank">
+                    Nema rezultata pretrage za "{{ search }}", ali zato...
+                </a>
+            </strong>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <a href="{{ path('homepage') }}" target="_blank">
+                <img src="/images/404.jpg" class="rounded img-fluid m-x-auto d-block" />
+            </a>
+        </div>
+        <div class="col-8">
+            {% set quotes = [
+                'Općina Centar je, možda, važnija od desetak nekih drugih općina.',
+                'Ponekad me optužuju da previše dajem HDZ-u. Možda i bude viška neko ministarstvo, neka pozicija direktorska, ali tu cijenu vrijedi platiti i imati popravak odnosa između Hrvata i Bošnjaka. Ja ću nastaviti tako.',
+                'Čekali smo ih više od 40 minuta. Danas su propustili priliku da sa SDA dogovore važne stvari za ovu zemlju i propustili su i jedan dobar burek.',
+                'Ona je menadžer i zna da motiviše ljude da se dobro radi. Možda, u slučaju KCUS-a kojem svi sada treba da pomognu, nije ni loše da menadžer bude neko ko ima dobre veze.',
+                'Narod je kriv što nije pratio SDA.',
+                'Kada završim aktivnu političku karijeru, vjerovatno ću biti veoma aktivan u tim raspravama na društvenim mrežama, jer osjećam da mnogo toga, sasvim jednostavnog i jasnog, mnogima još nije jasno.',
+                'Mi imamo raznovrsne istorijske veze, pa i genetske. Puno Bošnjaka, Bosanaca, živi u Turskoj i u nama, Bošnjacima - Bosancima ima turske krvi.',
+                'Gledali smo kako Sadam Husein, Gadafi, Milosević prkose i kako to izgleda.',
+                'Možda to za Gaddafija i nije najbolje poređenje',
+                'Svakog mjeseca broj zaposlenih se poveća za hiljadu. Ko ne vjeruje - neka provjeri.',
+                'Ja sam zaslužan što stvati nisu gore.'
+            ] %}
+            {{ random(quotes) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <p class="text-muted">
+                        <small>
+                            Šta ima?
+                        </small>
+                    </p>
+                </div>
+                <div class="col text-right">
+                    <p class="text-muted">
+                        <small>Nema ništa</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

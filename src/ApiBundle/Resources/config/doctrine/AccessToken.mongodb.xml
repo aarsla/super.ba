@@ -1,0 +1,13 @@
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <document name="ApiBundle\Document\AccessToken" db="news" collection="oauthAccessToken" customId="true">
+        <field fieldName="id" id="true" strategy="AUTO" />
+
+        <reference-one target-document="ApiBundle\Document\Client" field="client" />
+        <reference-one target-document="AppBundle\Document\User" field="user" />
+    </document>
+
+</doctrine-mongo-mapping>

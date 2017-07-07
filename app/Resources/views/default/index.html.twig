@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block headermenu %}
+    {{ include(':default:_menu.html.twig') }}
+{% endblock %}
+
+{% block filters %}
+    <small id="filters"></small>
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="marker">
+            {% for item in items %}
+                {% include 'default/_rss_template.html.twig' with {'item': item} %}
+            {% endfor %}
+            </div>
+        </div>
+        <div class="navbar-divider"></div>
+    </div>
+
+{% endblock %}
+
+{% block footermenu %}
+    {{ include(':default:_menu.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var ws = new WebSocket(wsserver+"/ws/news");
+    </script>
+    <script src="{{ asset('js/super.js') }}"></script>
+{% endblock %}

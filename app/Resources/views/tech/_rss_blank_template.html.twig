@@ -1,0 +1,55 @@
+<div class="col bs-callout box">
+    <div class="row">
+        <div class="col-12">
+            <strong>
+                <a href="{{  path('homepage') }}" target="_blank">
+                    Nema rezultata pretrage za "{{ search }}", ali zato...
+                </a>
+            </strong>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <a href="{{ path('homepage') }}" target="_blank">
+                <img src="/images/404.jpg" class="rounded img-fluid m-x-auto d-block" />
+            </a>
+        </div>
+        <div class="col-8">
+            {% set quotes = [
+                'Nobody calls me chicken!',
+                'Time traveling is just too dangerous.',
+                'Frankly, my dear, I don\'t give a damn.',
+                'I\'m gonna make him an offer he can\'t refuse.',
+                'Toto, I\'ve a feeling we\'re not in Kansas anymore.'
+            ] %}
+            {{ random(quotes) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <p class="text-muted">
+                        <small>
+                            Šta ima?
+                        </small>
+                    </p>
+                </div>
+                <div class="col text-right">
+                    <p class="text-muted">
+                        <small>Nema ništa</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

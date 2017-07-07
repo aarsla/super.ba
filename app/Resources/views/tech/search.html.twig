@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="marker">
+                {% if items is defined and items|length > 0 %}
+                    {% for item in items %}
+                        {% include 'tech/_rss_template.html.twig' with {'item': item} %}
+                    {% endfor %}
+                {% else %}
+                    {% if search is not defined %}
+                        {% set search = 'ništa' %}
+                    {% endif %}
+                    {% include 'tech/_rss_blank_template.html.twig' with {'search': search} %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="navbar-divider"></div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

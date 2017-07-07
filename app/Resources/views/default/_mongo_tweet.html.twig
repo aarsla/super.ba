@@ -1,0 +1,50 @@
+{% set userUrl = 'https://twitter.com/' ~ tweet.user.screenName %}
+{% set url = 'https://twitter.com/statuses/' ~ tweet.idStr %}
+
+<div class="col-sm-12 bs-callout box">
+    <div class="col-sm-8">
+        <img style="width: 20px;" src="{{ tweet.user.profileImageUrlHttps }}" class="img-rounded" />
+        <small>
+            <strong>
+                <a href="{{ userUrl }}" target="_blank">
+                    {{ tweet.user.name }}
+                    <small class="text-muted">
+                        {% if tweet.user.location is not null %}
+                            {{ tweet.user.location }}
+                        {% endif %}
+                    </small>
+                </a>
+            </strong>
+        </small>
+    </div>
+    <div class="col-sm-4 text-sm-right">
+        <p><small>
+                <a class="" href="{{ url }}" target="_blank">
+                    <i class="fa fa-clock-o"></i>
+                    {{ tweet.createdAt|date('H:i:s') }}
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+            </small>
+        </p>
+    </div>
+    <div class="col-sm-12"><hr></div>
+        {% if tweet.entities.media is not empty %}
+        {% set media = tweet.entities.media|first %}
+        <div class="col-sm-4">
+                {% if url is defined %}
+                    <a href="{{ url }}" target="_blank">
+                {% endif %}
+                <img src="{{ media.mediaUrlHttps }}" class="img-rounded img-fluid m-x-auto d-block" />
+                {% if url is defined %}
+                    </a>
+                {% endif %}
+        </div>
+        <div class="col-sm-8">
+            {{ tweet.text|raw|linkify(['http', 'https', 'twitter'], {'target':'_blank'}) }}
+        </div>
+        {% else %}
+            <div class="col-sm-12">
+                {{ tweet.text|raw|linkify(['http', 'https', 'twitter'], {'target':'_blank'}) }}
+            </div>
+        {% endif %}
+    </div>
