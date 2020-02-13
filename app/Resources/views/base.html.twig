@@ -7,7 +7,7 @@
         <link href="/css/bootstrap.min.css" rel="stylesheet">
         <link href="/css/font-awesome.min.css" rel="stylesheet">
         <link href="/css/style.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC1/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC1/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <script src="{{ asset('js/tether.min.js') }}"></script>
@@ -16,7 +16,7 @@
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/mustache.min.js') }}"></script>
         <script src="{{ asset('js/moment.min.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC1/js/bootstrap-datepicker.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC1/js/bootstrap-datepicker.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -25,7 +25,7 @@
                 <nav>
                     <ul class="nav nav-pills float-right">
                         <li class="nav-item">
-                            {{ render(controller('AppBundle:Default:searchForm')) }}
+{#                            {{ render(controller('AppBundle:Default:searchForm')) }}#}
                         </li>
                         <li class="nav-item">
                             <div class="dropdown">
@@ -123,7 +123,7 @@
                         <div class="modal-header">
                             <h4 class="modal-title" id="timeModalLabel">Vremeplov</h4>
                         </div>
-                        {{ render(controller('AppBundle:Default:dateForm')) }}
+{#                        {{ render(controller('AppBundle:Default:dateForm')) }}#}
                     </div>
                 </div>
             </div>

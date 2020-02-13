@@ -35,9 +35,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
+    form_themes:
         #resources: ['bootstrap_3_layout.html.twig']
-        resources: ['bootstrap_3_horizontal_layout.html.twig']
+        - bootstrap_3_horizontal_layout.html.twig
 
 # Doctrine Configuration
 doctrine:
