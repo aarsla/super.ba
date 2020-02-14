@@ -18,7 +18,7 @@ class DefaultController extends BaseController
     {
         $items = $this->get('doctrine_mongodb')
             ->getRepository('AppBundle:Article')
-            ->findAllSorted('BiH', $this->getNumberOfArticles(), $this->getFilterDate());
+            ->findAllSorted('BiH', $this->getBihNumberOfArticles(), $this->getBiHFilterDate());
 
         return $this->render('default/index.html.twig', [
             'items' => $items
@@ -32,20 +32,20 @@ class DefaultController extends BaseController
     {
         $items = $this->get('doctrine_mongodb')
             ->getRepository('AppBundle:Article')
-            ->findBySource($source, $this->getNumberOfArticles(), $this->getFilterDate());
+            ->findBySource($source, $this->getBihNumberOfArticles(), $this->getBiHFilterDate());
 
         return $this->render('default/index.html.twig', [
             'items' => $items,
-            'date' => $this->getFilterDate()
+            'date' => $this->getBiHFilterDate()
         ]);
     }
 
     public function searchFormAction()
     {
-        $form = $this->createForm(new SearchType(),
+        $form = $this->createForm(SearchType::class,
             array(
-                'action' => $this->generateUrl('search'),
-                'method' => 'POST',
+                'action' => $this->generateUrl('pretraga'),
+                'method' => 'POST'
             )
         );
 
@@ -55,16 +55,16 @@ class DefaultController extends BaseController
     }
 
     /**
-     * @Route("/pretraga", name="search")
+     * @Route("/pretraga", name="pretraga")
      * @Method({"GET", "POST"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function searchAction(Request $request)
     {
-        $form = $this->createForm(new SearchType(),
+        $form = $this->createForm(SearchType::class,
             array(
-                'action' => $this->generateUrl('search'),
+                'action' => $this->generateUrl('pretraga'),
                 'method' => 'POST',
             ));
 
@@ -74,11 +74,11 @@ class DefaultController extends BaseController
 
             $data = $form->getData();
             $search = $data['title'];
-            $request->getSession()->set('_search', $search);
+            $request->getSession()->set('_pretraga', $search);
 
             $items = $this->get('doctrine_mongodb')
                 ->getRepository('AppBundle:Article')
-                ->findByTitle($this->getSearchQuery(), $this->getNumberOfArticles(), $this->getFilterDate());
+                ->findByTitleAndCategory($this->getBiHSearchQuery(), 'BiH', $this->getBihNumberOfArticles(), $this->getBiHFilterDate());
 
             return $this->render('default/search.html.twig', [
                 'items' => $items,
@@ -88,19 +88,19 @@ class DefaultController extends BaseController
 
         $items = $this->get('doctrine_mongodb')
             ->getRepository('AppBundle:Article')
-            ->findByTitle($this->getSearchQuery(), $this->getNumberOfArticles(), $this->getFilterDate());
+            ->findByTitleAndCategory($this->getBiHSearchQuery(), 'BiH', $this->getBihNumberOfArticles(), $this->getBiHFilterDate());
 
         return $this->render('default/search.html.twig', [
             'items' => $items,
-            'search' => $this->getSearchQuery()
+            'search' => $this->getBiHSearchQuery()
         ]);
     }
 
     public function dateFormAction()
     {
-        $form = $this->createForm(new TimeType(),
+        $form = $this->createForm(TimeType::class,
             array(
-                'action' => $this->generateUrl('date'),
+                'action' => $this->generateUrl('vremeplov'),
                 'method' => 'POST',
             )
         );
@@ -111,11 +111,11 @@ class DefaultController extends BaseController
     }
 
     /**
-     * @Route("/postavke/{no}", name="number_of_articles")
+     * @Route("/postavke/{no}", name="bh_number_of_articles")
      */
     public function numberOfArticlesAction(Request $request, $no)
     {
-        $request->getSession()->set('_article_no', $no);
+        $request->getSession()->set('_bih_article_no', $no);
 
         $referer = $request->headers->get('referer');
 
@@ -127,14 +127,14 @@ class DefaultController extends BaseController
     }
 
     /**
-     * @Route("/vremeplov", name="date")
+     * @Route("/vremeplov", name="vremeplov")
      * @Method({"POST"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function dateAction(Request $request)
     {
-        $form = $this->createForm(new TimeType())
+        $form = $this->createForm(TimeType::class)
             ->add('submit', SubmitType::class)
             ->add('reset', SubmitType::class);
 
@@ -143,13 +143,13 @@ class DefaultController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
 
             if($form->get('reset')->isClicked()) {
-                $request->getSession()->set('_date', null);
+                $request->getSession()->set('_datum', null);
             } else {
                 $data = $form->getData();
                 $date = $data['date'];
 
                 if ($date) {
-                    $request->getSession()->set('_date', $date);
+                    $request->getSession()->set('_datum', $date);
                 }
             }
 

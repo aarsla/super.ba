@@ -4,8 +4,44 @@
     {{ include(':tech:_menu.html.twig') }}
 {% endblock %}
 
+{% block timeMenu %}
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#timeModal">
+            {% if app.session.get('_date') is not null %}
+                <div class="text-success">
+                    <i class="fa fa-clock-o"></i>
+                </div>
+            {% else %}
+                <div class="text-primary">
+                    <i class="fa fa-clock-o"></i>
+                </div>
+            {% endif %}
+        </a>
+    </li>
+{% endblock %}
+
 {% block filters %}
     <small id="tech-filters"></small>
+{% endblock %}
+
+{% block searchForm %}
+    <li class="nav-item">
+        {{ render(controller('AppBundle:Tech:searchForm')) }}
+    </li>
+{% endblock %}
+
+{% block articleNo %}
+    {% set no = app.session.get('_article_no') %}
+    <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ no ? no : 3 }}
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item {{ no == 3 ? ' active' }}" href="{{ path('number_of_articles', {'no': 3}) }}">3</a>
+        <a class="dropdown-item {{ no == 5 ? ' active' }}" href="{{ path('number_of_articles', {'no': 5}) }}">5</a>
+        <a class="dropdown-item {{ no == 10 ? ' active' }}" href="{{ path('number_of_articles', {'no': 10}) }}">10</a>
+        <a class="dropdown-item {{ no == 20 ? ' active' }}" href="{{ path('number_of_articles', {'no': 20}) }}">20</a>
+        <a class="dropdown-item {{ no == 30 ? ' active' }}" href="{{ path('number_of_articles', {'no': 30}) }}">30</a>
+    </div>
 {% endblock %}
 
 {% block body %}
@@ -13,13 +49,27 @@
     <div class="row">
         <div class="col-lg-12">
             <div id="marker">
-            {% for item in items %}
-                {% include 'tech/_rss_template.html.twig' with {'item': item} %}
-            {% endfor %}
+                {% for item in items %}
+                    {% include 'tech/_rss_template.html.twig' with {'item': item} %}
+                {% endfor %}
             </div>
         </div>
         <div class="navbar-divider"></div>
     </div>
+
+
+    {% block timeMachine %}
+        <div class="modal fade" id="timeModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="timeModalLabel">Time Machine</h4>
+                    </div>
+                    {{ render(controller('AppBundle:Tech:dateForm')) }}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
 
 {% endblock %}
 
@@ -29,7 +79,7 @@
 
 {% block javascripts %}
     <script>
-        var ws = new WebSocket(wsserver+"/ws/tech");
+        var ws = new WebSocket(wsserver + "/ws/tech");
     </script>
     <script src="{{ asset('js/super.js') }}"></script>
 {% endblock %}

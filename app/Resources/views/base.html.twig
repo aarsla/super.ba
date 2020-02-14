@@ -24,22 +24,26 @@
                 {% block navigation %}
                 <nav>
                     <ul class="nav nav-pills float-right">
+                        {% block searchForm %}
                         <li class="nav-item">
-{#                            {{ render(controller('AppBundle:Default:searchForm')) }}#}
+                            {{ render(controller('AppBundle:Default:searchForm')) }}
                         </li>
+                        {% endblock %}
                         <li class="nav-item">
                             <div class="dropdown">
-                                {% set no = app.session.get('_article_no') %}
-                                <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ no ? no : 3 }}
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item {{ no == 3 ? ' active' }}" href="{{ path('number_of_articles', {'no': 3}) }}">3</a>
-                                    <a class="dropdown-item {{ no == 5 ? ' active' }}" href="{{ path('number_of_articles', {'no': 5}) }}">5</a>
-                                    <a class="dropdown-item {{ no == 10 ? ' active' }}" href="{{ path('number_of_articles', {'no': 10}) }}">10</a>
-                                    <a class="dropdown-item {{ no == 20 ? ' active' }}" href="{{ path('number_of_articles', {'no': 20}) }}">20</a>
-                                    <a class="dropdown-item {{ no == 30 ? ' active' }}" href="{{ path('number_of_articles', {'no': 30}) }}">30</a>
-                                </div>
+                                {% block articleNo %}
+                                    {% set no = app.session.get('_bih_article_no') %}
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ no ? no : 3 }}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item {{ no == 3 ? ' active' }}" href="{{ path('bh_number_of_articles', {'no': 3}) }}">3</a>
+                                        <a class="dropdown-item {{ no == 5 ? ' active' }}" href="{{ path('bh_number_of_articles', {'no': 5}) }}">5</a>
+                                        <a class="dropdown-item {{ no == 10 ? ' active' }}" href="{{ path('bh_number_of_articles', {'no': 10}) }}">10</a>
+                                        <a class="dropdown-item {{ no == 20 ? ' active' }}" href="{{ path('bh_number_of_articles', {'no': 20}) }}">20</a>
+                                        <a class="dropdown-item {{ no == 30 ? ' active' }}" href="{{ path('bh_number_of_articles', {'no': 30}) }}">30</a>
+                                    </div>
+                                {% endblock %}
                             </div>
                         </li>
                         <li class="nav-item">
@@ -52,10 +56,10 @@
                                 <i class="fa fa-filter"></i>
                             </a>
                         </li>
-                        <!--
+                        {% block timeMenu %}
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="modal" data-target="#timeModal">
-                                {% if app.session.get('_date') is not null %}
+                                {% if app.session.get('_datum') is not null %}
                                     <div class="text-success">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
@@ -66,7 +70,7 @@
                                 {% endif %}
                             </a>
                         </li>
-                        -->
+                        {% endblock %}
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="modal" data-target="#helpModal">
                                 <i class="fa fa-question-circle"></i>
@@ -117,16 +121,18 @@
                 </div>
             </div>
 
+            {% block timeMachine %}
             <div class="modal fade" id="timeModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="timeModalLabel">Vremeplov</h4>
                         </div>
-{#                        {{ render(controller('AppBundle:Default:dateForm')) }}#}
+                        {{ render(controller('AppBundle:Default:dateForm')) }}
                     </div>
                 </div>
             </div>
+            {% endblock %}
 
             {% block body %}{% endblock %}
 

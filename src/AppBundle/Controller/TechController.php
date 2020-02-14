@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\SearchType;
+use AppBundle\Form\SearchTypeEN;
 use AppBundle\Form\TimeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -29,7 +29,7 @@ class TechController extends BaseController
     }
 
     /**
-     * @Route("/izvor/{source}", name="tech_source")
+     * @Route("/source/{source}", name="tech_source")
      */
     public function sourceAction(Request $request, $source)
     {
@@ -45,27 +45,27 @@ class TechController extends BaseController
 
     public function searchFormAction()
     {
-        $form = $this->createForm(new SearchType(),
+        $form = $this->createForm(SearchTypeEN::class,
             array(
                 'action' => $this->generateUrl('search'),
                 'method' => 'POST',
             )
         );
 
-        return $this->render('search/_form.html.twig', [
+        return $this->render('search/_formEN.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/pretraga", name="tech_search")
+     * @Route("/search", name="search")
      * @Method({"GET", "POST"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function searchAction(Request $request)
     {
-        $form = $this->createForm(new SearchType(),
+        $form = $this->createForm(SearchTypeEN::class,
             array(
                 'action' => $this->generateUrl('search'),
                 'method' => 'POST',
@@ -81,7 +81,7 @@ class TechController extends BaseController
 
             $items = $this->get('doctrine_mongodb')
                 ->getRepository('AppBundle:Article')
-                ->findByTitle($this->getSearchQuery(), $this->getNumberOfArticles(), $this->getFilterDate());
+                ->findByTitleAndCategory($this->getSearchQuery(), 'Tech', $this->getNumberOfArticles(), $this->getFilterDate());
 
             return $this->render('tech/search.html.twig', [
                 'items' => $items,
@@ -91,7 +91,7 @@ class TechController extends BaseController
 
         $items = $this->get('doctrine_mongodb')
             ->getRepository('AppBundle:Article')
-            ->findByTitle($this->getSearchQuery(), $this->getNumberOfArticles(), $this->getFilterDate());
+            ->findByTitleAndCategory($this->getSearchQuery(), 'Tech', $this->getNumberOfArticles(), $this->getFilterDate());
 
         return $this->render('tech/search.html.twig', [
             'items' => $items,
@@ -101,15 +101,69 @@ class TechController extends BaseController
 
     public function dateFormAction()
     {
-        $form = $this->createForm(new TimeType(),
+        $form = $this->createForm(TimeType::class,
             array(
-                'action' => $this->generateUrl('date'),
+                'action' => $this->generateUrl('timemachine'),
                 'method' => 'POST',
             )
         );
 
-        return $this->render('search/_date.html.twig', [
+        return $this->render('search/_dateEN.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/settings/{no}", name="number_of_articles")
+     */
+    public function numberOfArticlesAction(Request $request, $no)
+    {
+        $request->getSession()->set('_article_no', $no);
+
+        $referer = $request->headers->get('referer');
+
+        if (empty($referer)) {
+            throw $this->createNotFoundException('referer_not_found');
+        }
+
+        return $this->redirect($referer);
+    }
+
+    /**
+     * @Route("/timemachine", name="timemachine")
+     * @Method({"POST"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function dateAction(Request $request)
+    {
+        $form = $this->createForm(TimeType::class)
+            ->add('submit', SubmitType::class)
+            ->add('reset', SubmitType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if($form->get('reset')->isClicked()) {
+                $request->getSession()->set('_date', null);
+            } else {
+                $data = $form->getData();
+                $date = $data['date'];
+
+                if ($date) {
+                    $request->getSession()->set('_date', $date);
+                }
+            }
+
+        }
+
+        $referer = $request->headers->get('referer');
+
+        if (empty($referer)) {
+            throw $this->createNotFoundException('referer_not_found');
+        }
+
+        return $this->redirect($referer);
     }
 }

@@ -98,6 +98,30 @@ class ArticleRepository extends DocumentRepository
         return $query->getQuery()->execute()->toArray();
     }
 
+    public function findByTitleAndCategory($title, $category, $limit = 3, \DateTime $date = null)
+    {
+        $query = $this->createQueryBuilder()
+            ->field('title')->equals(new \MongoRegex('/.*'.$title.'.*/i'))
+            ->field('category.title')->equals($category)
+        ;
+
+        if ($date) {
+            $dayStart = clone($date);
+            $mongoDateStart = new \MongoDate($dayStart->getTimestamp());
+            $dayEnd = $dayStart->add(new \DateInterval("PT24H"));
+            $mongoDateEnd = new \MongoDate($dayEnd->getTimestamp());
+
+            $query->field('pubDate')->gt($mongoDateStart)
+                ->field('pubDate')->lt($mongoDateEnd);
+        }
+
+        $query->sort('pubDate', 'desc')
+            ->limit($limit)
+        ;
+
+        return $query->getQuery()->execute()->toArray();
+    }
+
     /**
      * @param null|string $category
      * @param int $offset
