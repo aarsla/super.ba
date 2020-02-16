@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Layout>
+      <Header>
+        <h1>super.ba</h1>
+      </Header>
+      <Content>Content</Content>
+      <Footer>© super.ba - Live news feed aggregator</Footer>
+    </Layout>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  name: 'SuperBa'
 }
 </script>
 
