@@ -1,16 +1,20 @@
 <template>
-  <div>super.ba</div>
+  <div>
+    <h1>{{ article.title }}</h1>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Artice',
+  name: 'Article',
   props: {
-    article: Article
+    article: {
+      id: Number,
+      title: String
+    }
   }
-};
+}
 </script>
 
 <style scoped>
-
 </style>
