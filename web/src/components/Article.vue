@@ -1,20 +1,148 @@
 <template>
-  <div>
-    <h1>{{ article.title }}</h1>
-  </div>
+  <a-card
+    :hoverable="true"
+    class="card"
+  >
+    <a
+      class="title"
+      :href="article.link"
+      target="_blank"
+    >{{ article.title }}</a>
+    <a
+      class="extra"
+      href="#"
+    >More</a>
+    <a-divider />
+    <a-row
+      type="flex"
+      justify="space-around"
+      align="top"
+    >
+      <a-col
+        :span="8"
+      >
+        <a
+          class="title"
+          :href="article.link"
+          target="_blank"
+        >
+          <img
+            class="image"
+            :alt="article.title"
+            :src="article.image"
+          ></a>
+      </a-col>
+      <a-col :span="16">
+        <p>{{ article.description }}</p>
+      </a-col>
+    </a-row>
+    <a-card-meta class="meta">
+      <template slot="description">
+        <a
+          class="left"
+          :href="article.source.url"
+          target="_blank"
+        >
+          <img
+            class="logo"
+            :alt="article.source.title"
+            :src="article.source.logo"
+          >
+          {{ article.source.title }}
+        </a>
+        <div class="right">
+          {{ pubDate }}
+        </div>
+      </template>
+    </a-card-meta>
+  </a-card>
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: 'Article',
+  created () {
+    // console.log(this.article)
+  },
   props: {
     article: {
-      id: Number,
-      title: String
+      type: Object,
+      default () {
+        return {
+          title: 'Title',
+          description: 'Description',
+          image: {
+            type: String
+          },
+          pubDate: {
+            sec: 0
+          }
+        }
+      }
+    }
+  },
+  computed: {
+    pubDate: function () {
+      return moment.unix(this.article.pubDate.sec).format('DD MMM YYYY HH:mm')
     }
   }
 }
 </script>
 
 <style scoped>
+.card {
+  cursor: auto;
+  margin: 10px;
+  padding: 10px;
+  text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.card .title {
+  font-size: 1rem;
+  font-weight: bolder;
+  font-feature-settings: 'tnum';
+  line-height: 1em;
+}
+
+.card .extra {
+  float: right;
+  font-size: 1em;
+  font-weight: 500;
+  font-feature-settings: 'tnum';
+}
+
+.card .image {
+  max-width: 200px;
+  border-radius: 5px;
+}
+
+a {
+  color: #0275d8;
+}
+
+p {
+  font-size: 1rem;
+  color: #111;
+}
+
+.meta {
+  margin: 35px 0 0 0;
+}
+
+.meta .left {
+  float: left;
+  text-decoration: none;
+}
+
+.meta .left .logo {
+  width: 20px;
+}
+
+.meta .right {
+  float: right;
+  font-weight: 500;
+}
 </style>

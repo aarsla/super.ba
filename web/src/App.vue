@@ -1,36 +1,16 @@
 <template>
   <div id="app">
-    <Layout>
-      <Header>
-        <h1>super.ba</h1>
-      </Header>
-      <Content>
-        <ArticleList v-bind:articles="articles" />
-      </Content>
-      <Footer>© super.ba - Live news feed aggregator</Footer>
-    </Layout>
+    <!-- <div id="nav">
+      <router-link to="/">
+        Home
+      </router-link> |
+      <router-link to="/about">
+        About
+      </router-link>
+    </div> -->
+    <router-view />
   </div>
 </template>
-
-<script>
-import ArticleList from './components/ArticleList.vue'
-
-export default {
-  name: 'SuperBaApp',
-  data: function () {
-    return {
-      articles: [
-        { id: 1, title: 'My journey with Vue' },
-        { id: 2, title: 'Blogging with Vue' },
-        { id: 3, title: 'Why Vue is so fun' }
-      ]
-    }
-  },
-  components: {
-    ArticleList
-  }
-}
-</script>
 
 <style>
 #app {
@@ -39,6 +19,19 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
