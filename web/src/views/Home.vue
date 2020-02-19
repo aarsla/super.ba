@@ -37,18 +37,26 @@
 
 <script>
 import ArticleList from '@/components/ArticleList.vue'
-const fixture = require('../fixtures/articles.json')
+import { mapState } from 'vuex'
 
 export default {
   name: 'SuperBaApp',
   data: function () {
     return {
-      articles: fixture.articles
     }
   },
   components: {
     ArticleList
-  }
+  },
+  created () {
+    this.$store.dispatch('fetchArticles')
+  },
+  computed: mapState(['articles'])
+  // computed: {
+  //   articles () {
+  //     return this.$store.state.articles
+  //   }
+  // }
 }
 </script>
 

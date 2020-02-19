@@ -1,5 +1,6 @@
 <template>
   <a-card
+    :loading="this.$store.state.isLoading"
     :hoverable="true"
     class="card"
   >
@@ -64,7 +65,7 @@ import moment from 'moment'
 export default {
   name: 'Article',
   created () {
-    // console.log(this.article)
+    this.isLoading = true
   },
   props: {
     article: {

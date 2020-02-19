@@ -22,23 +22,9 @@ export default {
       required: false
     }
   },
-  // data () {
-  //   return {}
-  // },
-  // created: function () {
-  //   // this.fetchItems()
-  // },
   components: {
     Article
   }
-  // methods: {
-  //   fetchItems () {
-  //     const uri = 'http://localhost:4000/tickets'
-  //     this.axios.get(uri).then((response) => {
-  //       this.tickets = response.data
-  //     })
-  //   }
-  // }
 }
 </script>
 
