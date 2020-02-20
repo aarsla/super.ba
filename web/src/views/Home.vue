@@ -1,7 +1,7 @@
 <template>
   <a-layout class="layout">
     <a-layout-header>
-      <h1>super.ba</h1>
+      <Header />
     </a-layout-header>
     <a-layout-content>
       <a-row
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import Header from '@/components/Header.vue'
 import ArticleList from '@/components/ArticleList.vue'
 import { mapState } from 'vuex'
 
@@ -46,17 +47,16 @@ export default {
     }
   },
   components: {
+    Header,
     ArticleList
   },
   created () {
     this.$store.dispatch('fetchArticles')
   },
-  computed: mapState(['articles'])
-  // computed: {
-  //   articles () {
-  //     return this.$store.state.articles
-  //   }
-  // }
+  computed: mapState([
+    'header',
+    'articles'
+  ])
 }
 </script>
 
@@ -67,6 +67,7 @@ export default {
 }
 
 .layout .ant-layout-header {
+  padding: 0 10px 0 10px;
   text-align: left;
   background: rgba(255, 255, 255, 1.0);
 }
