@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoading: false,
+    sources: [],
     articles: [],
     params: {
       query: '',
@@ -18,11 +19,12 @@ export default new Vuex.Store({
   },
   getters: {
     encodedFilters: state => {
-      return Buffer.from(this.params.filters).toString('base64')
+      const prep = state.params.filters.map(source => `"${source}"`)
+      return Buffer.from(`[${prep.join()}]`).toString('base64')
     },
-    articlesUrl: state => {
+    articlesUrl: (state, getters) => {
       const params = state.params
-      let url = `articles?category=${params.category}&filters=${params.encodedFilters}&limit=${params.limit}&offset=${params.offset}`
+      let url = `articles?category=${params.category}&filters=${getters.encodedFilters}&limit=${params.limit}&offset=${params.offset}`
 
       if (params.search !== '') {
         url = `${url}&search=${params.query}`
@@ -42,26 +44,23 @@ export default new Vuex.Store({
     SET_PARAMS_DATE (state, date) {
       state.params.date = date
     },
+    SET_PARAMS_FILTERS (state, filters) {
+      state.params.filters = filters
+    },
     SET_PARAMS_QUERY (state, query) {
       state.params.query = query
     },
     SET_LOADING_STATUS (state, status) {
       state.isLoading = status
     },
+    SET_SOURCES (state, sources) {
+      state.sources = sources.map(source => source.title)
+    },
     SET_ARTICLES (state, articles) {
       state.articles = articles
     }
   },
   actions: {
-    fetchArticles: function (context) {
-      context.commit('SET_LOADING_STATUS', true)
-      Vue.axios.get(this.getters.articlesUrl).then((result) => {
-        context.commit('SET_LOADING_STATUS', false)
-        context.commit('SET_ARTICLES', result.data.articles)
-      }).catch(error => {
-        throw new Error(`API ${error}`)
-      })
-    },
     setLimit ({ commit, dispatch }, limit) {
       commit('SET_PARAMS_LIMIT', limit)
       dispatch('fetchArticles')
@@ -73,6 +72,28 @@ export default new Vuex.Store({
     setQuery ({ commit, dispatch }, query) {
       commit('SET_PARAMS_QUERY', query)
       dispatch('fetchArticles')
+    },
+    setFilters ({ commit, dispatch }, filters) {
+      commit('SET_PARAMS_FILTERS', filters)
+      dispatch('fetchArticles')
+    },
+    fetchSources: function (context) {
+      context.commit('SET_LOADING_STATUS', true)
+      Vue.axios.get('sources').then((result) => {
+        context.commit('SET_LOADING_STATUS', false)
+        context.commit('SET_SOURCES', result.data.sources)
+      }).catch(error => {
+        throw new Error(`API ${error}`)
+      })
+    },
+    fetchArticles: function (context) {
+      context.commit('SET_LOADING_STATUS', true)
+      Vue.axios.get(this.getters.articlesUrl).then((result) => {
+        context.commit('SET_LOADING_STATUS', false)
+        context.commit('SET_ARTICLES', result.data.articles)
+      }).catch(error => {
+        throw new Error(`API ${error}`)
+      })
     }
   },
   modules: {

@@ -3,6 +3,9 @@
     <a-layout-header>
       <Header />
     </a-layout-header>
+    <a-layout-header>
+      <Source :sources="sources" />
+    </a-layout-header>
     <a-layout-content>
       <a-row
         type="flex"
@@ -37,25 +40,25 @@
 
 <script>
 import Header from '@/components/Header.vue'
+import Source from '@/components/controls/Source.vue'
 import ArticleList from '@/components/ArticleList.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'SuperBaApp',
-  data: function () {
-    return {
-    }
-  },
   components: {
     Header,
+    Source,
     ArticleList
   },
   created () {
+    this.$store.dispatch('fetchSources')
     this.$store.dispatch('fetchArticles')
   },
   computed: mapState([
     'header',
-    'articles'
+    'articles',
+    'sources'
   ])
 }
 </script>

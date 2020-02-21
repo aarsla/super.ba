@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <a-input-search
-      allow-clear
-      placeholder="Search"
-      @search="setQuery"
-      @change="onChange"
-    />
-  </div>
+  <a-input-search
+    allow-clear
+    placeholder="Search"
+    @search="setQuery"
+    @change="onChange"
+  />
 </template>
 
 <script>

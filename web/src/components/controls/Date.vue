@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <a-date-picker
-      slot="renderExtraFooter"
-      @change="setDate"
-    />
-  </div>
+  <a-date-picker
+    slot="renderExtraFooter"
+    @change="setDate"
+  />
 </template>
 
 <script>
