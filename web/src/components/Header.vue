@@ -25,7 +25,7 @@
         </a-col>
         <a-col :span="2">
           <a-button
-            type="primary"
+            type="secondary"
             shape="circle"
             icon="question"
             @click="showModal"

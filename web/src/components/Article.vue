@@ -9,10 +9,6 @@
       :href="article.link"
       target="_blank"
     >{{ article.title }}</a>
-    <a
-      class="extra"
-      href="#"
-    >More</a>
     <a-divider />
     <a-row
       type="flex"
@@ -51,8 +47,15 @@
           >
           {{ article.source.title }}
         </a>
-        <div class="right">
-          {{ pubDate }}
+        <div class="pubDate right">
+          {{ pubDate }} |
+          <a-button
+            size="small"
+            shape="circle"
+            type="primary"
+            icon="share-alt"
+            @click="shareArticle(article)"
+          />
         </div>
       </template>
     </a-card-meta>
@@ -87,6 +90,11 @@ export default {
   computed: {
     pubDate: function () {
       return moment.unix(this.article.pubDate.sec).format('DD MMM YYYY HH:mm')
+    }
+  },
+  methods: {
+    shareArticle (article) {
+      console.log(article._id.$id)
     }
   }
 }
@@ -140,6 +148,11 @@ p {
 
 .meta .left .logo {
   width: 20px;
+}
+
+.meta .pubDate {
+  color:#0275d8;
+  font-size: 0.8rem;
 }
 
 .meta .right {

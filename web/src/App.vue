@@ -4,8 +4,8 @@
       <router-link to="/">
         Home
       </router-link> |
-      <router-link to="/about">
-        About
+      <router-link :to="{ name: 'Article', params: { id: 123 }}">
+        Article
       </router-link>
     </div> -->
     <router-view />
