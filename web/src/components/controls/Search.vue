@@ -2,6 +2,7 @@
   <a-input-search
     allow-clear
     placeholder="Search"
+    :default-value="query"
     @search="setQuery"
     @change="onChange"
   />
@@ -13,6 +14,9 @@ import { mapActions } from 'vuex'
 export default {
   name: 'Search',
   computed: {
+    defaultValue () {
+      return 'test'
+    },
     query () {
       return this.$store.state.params.query
     }

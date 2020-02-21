@@ -1,6 +1,6 @@
 <template>
   <a-select
-    default-value="3"
+    :default-value="limit"
     @change="setLimit"
   >
     <a-select-option value="3">

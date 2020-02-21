@@ -8,7 +8,7 @@
       <a-select
         mode="multiple"
         placeholder="Remove news sources"
-        :value="selectedItems"
+        :default-value="filters"
         @change="updateSources"
         style="width: 100%"
       >
@@ -44,6 +44,9 @@ export default {
     }
   },
   computed: {
+    filters () {
+      return this.$store.state.params.filters
+    },
     filteredOptions () {
       return this.sources.filter(o => !this.selectedItems.includes(o))
     }

@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
+import moment from 'moment'
 
 Vue.use(Vuex)
 
@@ -31,7 +33,7 @@ export default new Vuex.Store({
       }
 
       if (params.date) {
-        url = `${url}&time=${params.date.unix()}`
+        url = `${url}&time=${moment(params.date).unix()}`
       }
 
       return url
@@ -97,5 +99,9 @@ export default new Vuex.Store({
     }
   },
   modules: {
-  }
+  },
+  plugins: [new VuexPersistence({
+    key: 'super.ba',
+    reducer: (state) => ({ params: state.params })
+  }).plugin]
 })
