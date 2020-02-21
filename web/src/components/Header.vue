@@ -2,7 +2,9 @@
   <a-row>
     <a-col :span="4">
       <div class="logo">
-        <h1>super.ba</h1>
+        <router-link to="/">
+          <h1>super.ba</h1>
+        </router-link>
       </div>
     </a-col>
     <a-col
@@ -31,11 +33,11 @@
             @click="showModal"
           />
           <a-modal
-            title="Lorem Ipsum"
+            title="Super.ba"
             v-model="visible"
             @ok="handleOk"
           >
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar neque eget dolor fermentum egestas. Aenean sagittis ipsum et tellus tristique, ornare sodales quam eleifend. Phasellus id leo non arcu convallis pulvinar. Morbi et nunc eget nisl fringilla egestas. Pellentesque fringilla dolor neque, eu sollicitudin nunc iaculis quis. Vestibulum vehicula mollis libero id maximus. Fusce at finibus lorem. Quisque nec quam semper augue porta tempus.</p>
+            <p>Your friendly news aggregator.</p>
           </a-modal>
         </a-col>
       </a-row>

@@ -1,0 +1,10 @@
+{
+  "server": {
+    "port": "3355",
+    "logger": false
+  },
+  "mongodb": {
+    "uri": "mongodb://localhost:54362/jest"
+  },
+  "redis": null
+}

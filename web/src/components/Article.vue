@@ -4,11 +4,32 @@
     :hoverable="true"
     class="card"
   >
-    <a
-      class="title"
-      :href="article.link"
-      target="_blank"
-    >{{ article.title }}</a>
+    <a-row align="bottom">
+      <a-col
+        :span="23"
+      >
+        <a
+          class="title"
+          :href="article.link"
+          target="_blank"
+        >{{ article.title }}</a>
+      </a-col>
+      <a-col
+        class="right"
+        :span="1"
+      >
+        <a-button
+          title="Copy link to article"
+          size="small"
+          shape="circle"
+          type="dashed"
+          icon="copy"
+          v-clipboard:copy="shareLink"
+          v-clipboard:success="onCopy"
+          v-clipboard:error="onError"
+        />
+      </a-col>
+    </a-row>
     <a-divider />
     <a-row
       type="flex"
@@ -48,14 +69,7 @@
           {{ article.source.title }}
         </a>
         <div class="pubDate right">
-          {{ pubDate }} |
-          <a-button
-            size="small"
-            shape="circle"
-            type="primary"
-            icon="share-alt"
-            @click="shareArticle(article)"
-          />
+          {{ pubDate }}
         </div>
       </template>
     </a-card-meta>
@@ -88,13 +102,28 @@ export default {
     }
   },
   computed: {
+    shareLink: function () {
+      return `${process.env.VUE_APP_URL}/#/article/${this.article._id}`
+    },
     pubDate: function () {
-      return moment.unix(this.article.pubDate.sec).format('DD MMM YYYY HH:mm')
+      return moment(this.article.pubDate).format('DD MMM YYYY HH:mm')
     }
   },
   methods: {
-    shareArticle (article) {
-      console.log(article._id.$id)
+    onCopy: function (e) {
+      this.$notification.success({
+        message: 'Link copied',
+        description:
+            'Share link has been copied to your clipboard.'
+      })
+    },
+    onError: function (e) {
+      this.$notification.open({
+        message: 'Error copying link',
+        description:
+            'We were not able to copy shre link to your clipboard!',
+        onClick: () => {}
+      })
     }
   }
 }
