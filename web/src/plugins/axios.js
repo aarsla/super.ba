@@ -23,6 +23,7 @@ const _axios = axios.create(config)
 _axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
+    config.headers.Authorization = 'Bearer 7def4850f311ea9aaf50e54947e6c829e8606250f311ea8d5e'
     return config
   },
   function (error) {

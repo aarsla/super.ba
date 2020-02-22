@@ -11,6 +11,15 @@ function fastifyServer () {
   fastify.register(require('./plugins/fastify-mongoose'), config.mongodb)
   fastify.register(require('fastify-swagger'), swagger.options)
 
+  // fastify.register(require('fastify-jwt'), { secret: config.jwt.secret })
+  // fastify.addHook('onRequest', async (request, reply) => {
+  //   try {
+  //     await request.jwtVerify()
+  //   } catch (err) {
+  //     reply.send(err)
+  //   }
+  // })
+
   routes.forEach((route, index) => {
     fastify.route(route)
   })

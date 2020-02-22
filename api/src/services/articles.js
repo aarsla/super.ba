@@ -8,7 +8,7 @@ function prepareFilter (filter) {
   if (filter.pubDate) {
     const fromDate = filter.pubDate
     const toDate = moment(fromDate).add(1, 'day').format(('YYYY-MM-DD'))
-    filter.pubDate = { $gte: fromDate, $lte: toDate }
+    filter.pubDate = { $gte: fromDate, $lt: toDate }
   }
 }
 

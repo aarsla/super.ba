@@ -8,5 +8,8 @@ module.exports = {
     uri: process.env.MONGODB
   },
   redis: process.env.REDIS,
-  domain: process.env.DOMAIN
+  domain: process.env.DOMAIN,
+  jwt: {
+    secret: process.env.APP_SECRET
+  }
 }

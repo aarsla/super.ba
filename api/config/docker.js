@@ -11,5 +11,8 @@ module.exports = {
     uri: 'mongodb://mongodb:27017/news'
   },
   redis: 'redis://redis:6379',
-  domain: 'http://web:3366'
+  domain: 'http://web:3366',
+  jwt: {
+    secret: '7def4850f311ea9aaf50e54947e6c829e8606250f311ea8d5e'
+  }
 }

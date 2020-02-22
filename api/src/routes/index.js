@@ -1,6 +1,7 @@
+const userRoutes = require('./user')
 const articleRoutes = require('./articles')
 const sourceRoutes = require('./sources')
 
-const routes = sourceRoutes.concat(articleRoutes)
+const routes = userRoutes.concat(sourceRoutes).concat(articleRoutes)
 
 module.exports = routes
