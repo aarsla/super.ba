@@ -3,12 +3,14 @@ import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 import VueClipboard from 'vue-clipboard2'
 import moment from 'moment'
+import jwt from 'jsonwebtoken'
 
 Vue.use(Vuex)
 Vue.use(VueClipboard)
 
 export default new Vuex.Store({
   state: {
+    currentJWT: null,
     isLoading: false,
     sources: [],
     articleId: String,
@@ -23,6 +25,10 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    jwt: (state) => (state.currentJWT),
+    jwtData: (state, getters) => (state.currentJWT ? JSON.parse(atob(getters.jwt.split('.')[1])) : null),
+    jwtSubject: (state, getters) => (getters.jwtData ? getters.jwtData.sub : null),
+    jwtIssuer: (state, getters) => (getters.jwtData ? getters.jwtData.iss : null),
     joinedFilters: state => {
       return state.params.filters.join()
     },
@@ -46,6 +52,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    SET_JWT (state, token) {
+      state.currentJWT = token
+    },
     SET_PARAMS_LIMIT (state, limit) {
       state.params.limit = limit
     },
@@ -72,6 +81,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    async setJWT (context, commit) {
+      context.commit('SET_LOADING_STATUS', true)
+      const token = jwt.sign({ sub: 'super.ba' }, process.env.VUE_APP_APP_SECRET, { expiresIn: '1h' })
+      context.commit('SET_JWT', token)
+      context.commit('SET_LOADING_STATUS', false)
+    },
     setLimit ({ commit, dispatch }, limit) {
       commit('SET_PARAMS_LIMIT', limit)
       dispatch('fetchArticles')
@@ -91,40 +106,49 @@ export default new Vuex.Store({
     setArticle ({ commit, dispatch }, articleId) {
       commit('SET_ARTICLE_ID', articleId)
     },
-    fetchSources: function (context) {
+    async fetchSources (context) {
       context.commit('SET_LOADING_STATUS', true)
-      Vue.axios.get('sources').then((result) => {
-        context.commit('SET_LOADING_STATUS', false)
+
+      try {
+        const result = await Vue.axios.get('sources')
         context.commit('SET_SOURCES', result.data.results)
-      }).catch(error => {
+      } catch (error) {
         throw new Error(`API ${error}`)
-      })
+      } finally {
+        context.commit('SET_LOADING_STATUS', false)
+      }
     },
-    fetchArticle: function (context, articleId) {
+    async fetchArticle (context, articleId) {
       context.commit('SET_LOADING_STATUS', true)
       context.commit('SET_ARTICLE_ID', articleId)
-      Vue.axios.get(this.getters.articleUrl).then((result) => {
-        context.commit('SET_LOADING_STATUS', false)
+
+      try {
+        const result = await Vue.axios.get(this.getters.articleUrl)
         context.commit('SET_ARTICLES', [result.data])
-        context.commit('SET_ARTICLE_ID', null)
-      }).catch(error => {
+      } catch (error) {
         throw new Error(`API ${error}`)
-      })
-    },
-    fetchArticles: function (context) {
-      context.commit('SET_LOADING_STATUS', true)
-      Vue.axios.get(this.getters.articlesUrl).then((result) => {
+      } finally {
         context.commit('SET_LOADING_STATUS', false)
+        context.commit('SET_ARTICLE_ID', null)
+      }
+    },
+    async fetchArticles (context) {
+      context.commit('SET_LOADING_STATUS', true)
+      try {
+        const result = await Vue.axios.get(this.getters.articlesUrl)
         context.commit('SET_ARTICLES', result.data.results)
-      }).catch(error => {
+      } catch (error) {
         throw new Error(`API ${error}`)
-      })
+      } finally {
+        context.commit('SET_LOADING_STATUS', false)
+      }
     }
   },
-  modules: {
-  },
-  plugins: [new VuexPersistence({
-    key: 'super.ba',
-    reducer: (state) => ({ params: state.params })
-  }).plugin]
+  modules: {},
+  plugins: [
+    new VuexPersistence({
+      key: 'super.ba',
+      reducer: state => ({ token: state.currentJWT, params: state.params })
+    }).plugin
+  ]
 })

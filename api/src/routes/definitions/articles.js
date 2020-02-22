@@ -1,5 +1,5 @@
-const articleService = require('../services/articles')
-const documentation = require('./documentation/articleApi')
+const articleService = require('../../services/articles')
+const documentation = require('../documentation/articleApi')
 
 const routes = [
   {
@@ -11,7 +11,8 @@ const routes = [
   {
     method: 'GET',
     url: '/api/articles/:id',
-    handler: articleService.getArticle
+    handler: articleService.getArticle,
+    schema: documentation.getArticleSchema
   }]
 
 module.exports = routes

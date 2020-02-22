@@ -36,7 +36,8 @@ exports.getArticles = async (req, reply) => {
 exports.getArticle = async (req, reply) => {
   try {
     const id = req.params.id
-    return await Article.findById(id)
+    const result = await Article.findById(id)
+    reply.send(result)
   } catch (err) {
     throw boom.boomify(err)
   }

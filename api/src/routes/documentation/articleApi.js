@@ -13,15 +13,15 @@ const articleSchema = {
     category: {
       type: 'object',
       properties: {
-        title: { type: 'string' },
+        title: { type: 'string' }
       }
     },
     source: {
       type: 'object',
       properties: {
-        title: {type: 'string'},
-        url: {type: 'string'},
-        logo: {type: 'string'}
+        title: { type: 'string' },
+        url: { type: 'string' },
+        logo: { type: 'string' }
       }
     }
   }
@@ -45,5 +45,14 @@ exports.getArticlesSchema = {
   summary: 'Retrieves news articles',
   response: {
     200: pagedResponseSchema
+  }
+}
+
+exports.getArticleSchema = {
+  description: 'Fetch article',
+  tags: ['articles'],
+  summary: 'Retrieves news article',
+  response: {
+    200: articleSchema
   }
 }

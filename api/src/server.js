@@ -1,5 +1,6 @@
 const config = require('config')
-const routes = require('./routes/index')
+const publicRoutes = require('./routes/public')
+const privateRoutes = require('./routes/private')
 const swagger = require('./config/swagger')
 
 function fastifyServer () {
@@ -11,18 +12,20 @@ function fastifyServer () {
   fastify.register(require('./plugins/fastify-mongoose'), config.mongodb)
   fastify.register(require('fastify-swagger'), swagger.options)
 
-  // fastify.register(require('fastify-jwt'), { secret: config.jwt.secret })
-  // fastify.addHook('onRequest', async (request, reply) => {
-  //   try {
-  //     await request.jwtVerify()
-  //   } catch (err) {
-  //     reply.send(err)
-  //   }
-  // })
+  fastify.register(require('fastify-jwt'), { secret: config.jwt.secret })
+  fastify.decorate('authenticate', async function (request, reply) {
+    try {
+      await request.jwtVerify()
+    } catch (err) {
+      reply.send(err)
+    }
+  })
 
-  routes.forEach((route, index) => {
+  publicRoutes.forEach((route, index) => {
     fastify.route(route)
   })
+
+  fastify.register(privateRoutes)
 
   return fastify
 }

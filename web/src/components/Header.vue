@@ -27,6 +27,7 @@
         </a-col>
         <a-col :span="2">
           <a-button
+            class="right"
             type="secondary"
             shape="circle"
             icon="question"
@@ -76,5 +77,8 @@ export default {
 <style scoped>
 .logo {
   font-size: 1rem;
+}
+.right {
+  float: right;
 }
 </style>

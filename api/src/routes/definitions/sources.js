@@ -1,5 +1,5 @@
-const sourcesService = require('../services/sources')
-const documentation = require('./documentation/sourceApi')
+const sourcesService = require('../../services/sources')
+const documentation = require('../documentation/sourceApi')
 
 const routes = [
   {

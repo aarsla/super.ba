@@ -2,6 +2,7 @@
 
 import Vue from 'vue'
 import axios from 'axios'
+import store from '../store'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -20,26 +21,46 @@ const config = {
 
 const _axios = axios.create(config)
 
+function getAccessToken () {
+  return store.getters.jwt
+}
+
+async function updateAccessToken () {
+  store.dispatch('setJWT')
+}
+
 _axios.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
-    config.headers.Authorization = 'Bearer 7def4850f311ea9aaf50e54947e6c829e8606250f311ea8d5e'
+  async function (config) {
+    const token = getAccessToken()
+
+    if (!token) {
+      updateAccessToken()
+    }
+
+    config.headers.Authorization = `Bearer ${getAccessToken()}`
+
     return config
   },
   function (error) {
-    // Do something with request error
     return Promise.reject(error)
   }
 )
 
-// Add a response interceptor
 _axios.interceptors.response.use(
   function (response) {
-    // Do something with response data
     return response
   },
   function (error) {
-    // Do something with response error
+    if (error.response &&
+      error.response.data &&
+      error.response.data.statusCode === 401 &&
+      error.response.data.message === 'Authorization token expired') {
+      return updateAccessToken().then(() => {
+        error.config.headers.Authorization = `Bearer ${getAccessToken()}`
+        return axios.request(error.response.config)
+      })
+    }
+
     return Promise.reject(error)
   }
 )
