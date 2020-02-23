@@ -4,17 +4,14 @@ const Article = require('./model/article')
 const db = require('./model/db')
 const ArticleModel = db.model('Article')
 
-const feed = 'http://balkans.aljazeera.net/mobile/articles'
+const feed = 'https://www.cin.ba/feed/'
 const source = {
-  title: 'Al Jazeera Balkans',
-  url: 'http://balkans.aljazeera.net/',
-  logo: 'http://balkans.aljazeera.net/sites/default/themes/custom/ajbalkans/logo.png'
+  title: 'Cin',
+  url: 'https://www.cin.ba/',
+  logo: 'https://www.cin.ba/wp-content/uploads/2016/09/logocin-300x246.jpg'
 }
 
-const imageRegex = /<img[^>]+src="?([^"\s]+)"?[^>]*\/>/
-const pRegex = /(?!>)([^><]+)(?=<\/p>)/
-
-class AlJazeera {
+class Cin {
   constructor () {
     this.items = []
   }
@@ -28,17 +25,10 @@ class AlJazeera {
       for (const item of this.items) {
         if (await this.articleExists(item)) { return }
 
-        const regexResults = imageRegex.exec(item.summary)
-        const image = regexResults ? regexResults[1] : null
-
-        const pResults = pRegex.exec(item.summary)
-        const pContent = pResults ? pResults[0] : null
-
         await new Article(item.title)
-          .setDescription(pContent || null)
+          .setDescription(item.description)
           .setPubDate(item.pubDate)
           .setLink(item.link)
-          .setImage(image || '')
           .setCategory({ title: 'BiH' })
           .setSource(source)
           .save()
@@ -58,4 +48,4 @@ class AlJazeera {
   }
 }
 
-module.exports = new AlJazeera()
+module.exports = new Cin()

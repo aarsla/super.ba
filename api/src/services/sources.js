@@ -5,12 +5,9 @@ exports.getSources = async (req, reply) => {
         title: '24sata info',
         url: 'http://24sata.info',
         logo: 'http://24sata.info/themes/tpl_4018/img/logo_24si.png'
-      }, {
-        title: '6yka magazin',
-        url: 'http://www.6yka.com',
-        logo: 'http://www.6yka.com/assets/public/img/logo.png'
-      }, {
-        title: 'Aljazeera Balkans',
+      },
+      {
+        title: 'Al Jazeera Balkans',
         url: 'http://balkans.aljazeera.net/',
         logo: 'http://balkans.aljazeera.net/sites/default/themes/custom/ajbalkans/logo.png'
       }, {
