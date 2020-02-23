@@ -22,6 +22,11 @@ export default new Vuex.Store({
       category: 'BiH',
       limit: 3,
       offset: 0
+    },
+    socket: {
+      isConnected: false,
+      message: '',
+      reconnectError: false
     }
   },
   getters: {
@@ -71,13 +76,34 @@ export default new Vuex.Store({
       state.isLoading = status
     },
     SET_SOURCES (state, sources) {
-      state.sources = sources.map(source => source.title)
+      state.sources = sources
     },
     SET_ARTICLE_ID (state, articleId) {
       state.articleId = articleId
     },
     SET_ARTICLES (state, articles) {
       state.articles = articles
+    },
+    SOCKET_ONOPEN (state, event) {
+      Vue.prototype.$socket = event.currentTarget
+      state.socket.isConnected = true
+    },
+    SOCKET_ONCLOSE (state, event) {
+      state.socket.isConnected = false
+    },
+    SOCKET_ONERROR (state, event) {
+      console.error(state, event)
+    },
+    // default handler called for all methods
+    SOCKET_ONMESSAGE (state, message) {
+      state.socket.message = message
+    },
+    // mutations for reconnect methods
+    SOCKET_RECONNECT (state, count) {
+      console.info(state, count)
+    },
+    SOCKET_RECONNECT_ERROR (state) {
+      state.socket.reconnectError = true
     }
   },
   actions: {
@@ -142,6 +168,9 @@ export default new Vuex.Store({
       } finally {
         context.commit('SET_LOADING_STATUS', false)
       }
+    },
+    sendMessage (context, message) {
+      Vue.prototype.$socket.send(message)
     }
   },
   modules: {},

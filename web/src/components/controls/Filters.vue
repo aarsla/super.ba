@@ -1,0 +1,54 @@
+<template>
+  <a-row>
+    <a-col>
+      <a-checkbox-group
+        :options="plainOptions"
+        v-model="checkedList"
+        @change="onChange"
+      />
+    </a-col>
+  </a-row>
+</template>
+
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  name: 'Filters',
+  data () {
+    return {
+      checkedList: this.$store.state.params.filters
+    }
+  },
+  props: {
+    sources: {
+      type: Array,
+      default () {
+        return []
+      },
+      required: false
+    }
+  },
+  computed: {
+    plainOptions () {
+      return this.$store.state.sources.map(source => source.title)
+    }
+  },
+  methods: {
+    onChange (checkedList) {
+      this.$store.dispatch('setFilters', checkedList)
+    },
+    ...mapActions([
+      'setFilters'
+    ])
+  }
+}
+</script>
+
+<style>
+.ant-checkbox-wrapper {
+  width: 100%;
+  display: block;
+  margin-right: 0;
+}
+</style>

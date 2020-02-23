@@ -173,6 +173,11 @@ astral-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-1.0.0.tgz#6c8c3fb827dd43ee3918f27b82782ab7658a6fd9"
   integrity sha512-+Ryf6g3BKoRc7jfp7ad8tM4TtMiaWvbF/1/sQcZPkkS7ag3D5nMBCe2UfOTONtAkaG0tO0ij3C5Lwmf1EiyjHg==
 
+async-limiter@~1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
+  integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
+
 avvio@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/avvio/-/avvio-6.3.0.tgz#b33c4f782755c560ddce1daf3eb9796966e0c5b5"
@@ -287,6 +292,13 @@ buffers@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/buffers/-/buffers-0.1.1.tgz#b24579c3bed4d6d396aeee6d9a8ae7f5482ab7bb"
   integrity sha1-skV5w77U1tOWru5tmorn9Ugqt7s=
+
+bufferutil@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/bufferutil/-/bufferutil-4.0.1.tgz#3a177e8e5819a1243fe16b63a199951a7ad8d4a7"
+  integrity sha512-xowrxvpxojqkagPcWRQVXZl0YXhRhAtBEIq3VoER1NH5Mw1n1o0ojdspp+GS2J//2gCVyrzQDApQ4unGF+QOoA==
+  dependencies:
+    node-gyp-build "~3.7.0"
 
 callsites@^3.0.0:
   version "3.1.0"
@@ -1061,7 +1073,7 @@ fastify-jwt@^1.2.1:
     jsonwebtoken "^8.3.0"
     steed "^1.1.3"
 
-fastify-plugin@^1.0.0, fastify-plugin@^1.2.0, fastify-plugin@^1.2.1, fastify-plugin@^1.6.0:
+fastify-plugin@^1.0.0, fastify-plugin@^1.2.0, fastify-plugin@^1.2.1, fastify-plugin@^1.5.0, fastify-plugin@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-1.6.0.tgz#c8198b08608f20c502b5dad26b36e9ae27206d7c"
   integrity sha512-lFa9txg8LZx4tljj33oG53nUXhVg0baZxtP9Pxi0dJmI0NQxzkDk5DS9kr3D7iMalUAp3mvIq16OQumc7eIvLA==
@@ -1087,6 +1099,17 @@ fastify-swagger@^2.5.0:
     fastify-plugin "^1.6.0"
     fastify-static "^2.5.1"
     js-yaml "^3.12.1"
+
+fastify-ws@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/fastify-ws/-/fastify-ws-1.0.3.tgz#ee4a8677c3b1fb4b85ed74284bcfe954a12a4b31"
+  integrity sha512-bz3TstSGPr2LzTCivnc3gISuiPNmYS+Dbau0bpQzQXgurSVPOE79OPdB5jCJD/owPWXzOBdSGbFD0lUXvMRKkg==
+  dependencies:
+    bufferutil "^4.0.1"
+    fastify-plugin "^1.5.0"
+    utf-8-validate "^5.0.2"
+    uws "10.148.1"
+    ws "^6.1.4"
 
 fastify@^2.12.0:
   version "2.12.0"
@@ -2062,6 +2085,11 @@ nocache@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/nocache/-/nocache-2.1.0.tgz#120c9ffec43b5729b1d5de88cd71aa75a0ba491f"
   integrity sha512-0L9FvHG3nfnnmaEQPjT9xhfN4ISk0A8/2j4M37Np4mcDesJjHgEUfgPhdCyZuFI954tjokaIj/A3NdpFNdEh4Q==
+
+node-gyp-build@~3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-3.7.0.tgz#daa77a4f547b9aed3e2aac779eaf151afd60ec8d"
+  integrity sha512-L/Eg02Epx6Si2NXmedx+Okg+4UHqmaf3TNcxd50SF9NQGcJaON3AtU++kax69XV7YWz4tUspqZSAsVofhFKG2w==
 
 nodemon@^2.0.2:
   version "2.0.2"
@@ -3187,10 +3215,22 @@ url-parse-lax@^1.0.0:
   dependencies:
     prepend-http "^1.0.1"
 
+utf-8-validate@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/utf-8-validate/-/utf-8-validate-5.0.2.tgz#63cfbccd85dc1f2b66cf7a1d0eebc08ed056bfb3"
+  integrity sha512-SwV++i2gTD5qh2XqaPzBnNX88N6HdyhQrNNRykvcS0QKvItV9u3vPEJr+X5Hhfb1JC0r0e1alL0iB09rY8+nmw==
+  dependencies:
+    node-gyp-build "~3.7.0"
+
 util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
+
+uws@10.148.1:
+  version "10.148.1"
+  resolved "https://registry.yarnpkg.com/uws/-/uws-10.148.1.tgz#fd1a79cf6118a388e0a1bed8a1397030d2c4fd2c"
+  integrity sha1-/Rp5z2EYo4jgob7YoTlwMNLE/Sw=
 
 v8-compile-cache@^2.0.3:
   version "2.1.0"
@@ -3249,6 +3289,13 @@ write@1.0.3:
   integrity sha512-/lg70HAjtkUgWPVZhZcm+T4hkL8Zbtp1nFNOn3lRrxnlv50SRBv7cR7RqR+GMsd3hUXy9hWBo4CHTbFTcOYwig==
   dependencies:
     mkdirp "^0.5.1"
+
+ws@^6.1.4:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-6.2.1.tgz#442fdf0a47ed64f59b6a5d8ff130f4748ed524fb"
+  integrity sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
+  dependencies:
+    async-limiter "~1.0.0"
 
 x-xss-protection@^1.1.0:
   version "1.3.0"

@@ -2,7 +2,7 @@
   <div class="articles">
     <Article
       v-for="article in articles"
-      :key="article._msgid"
+      :key="article._id"
       :article="article"
     />
   </div>
@@ -24,6 +24,15 @@ export default {
   },
   components: {
     Article
+  },
+  created () {
+    this.$options.sockets.onmessage = (msg) => {
+      this.$notification.success({
+        message: 'New article',
+        description:
+            msg.data
+      })
+    }
   }
 }
 </script>

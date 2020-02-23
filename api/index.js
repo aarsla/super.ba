@@ -7,12 +7,6 @@ const server = fastifyServer()
 const start = async () => {
   try {
     server.listen(config.server.port, config.server.address)
-
-    server.ready(err => {
-      if (err) throw err
-      server.swagger()
-    })
-
     console.log(chalk.green(`Server started at http://${config.server.address}:${config.server.port}`))
   } catch (err) {
     server.log.error(err)

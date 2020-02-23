@@ -12,6 +12,7 @@ exports.getSourcesSchema = {
           items: {
             type: 'object',
             properties: {
+              _id: { type: 'string' },
               title: { type: 'string' },
               url: { type: 'string' },
               logo: { type: 'string' }

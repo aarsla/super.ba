@@ -106,9 +106,7 @@ export default {
           image: {
             type: String
           },
-          pubDate: {
-            sec: 0
-          }
+          pubDate: moment
         }
       }
     }
@@ -165,7 +163,7 @@ export default {
 }
 
 .card .image {
-  max-width: 200px;
+  width: 200px;
   border-radius: 5px;
 }
 

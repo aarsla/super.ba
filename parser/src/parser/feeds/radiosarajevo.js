@@ -22,8 +22,6 @@ class RadioSarajevo {
     try {
       this.items = await baseParser(feed)
 
-      console.log(chalk.yellow(`${this.constructor.name} ...`))
-
       for (const item of this.items) {
         if (await this.articleExists(item)) { return }
 
@@ -41,6 +39,8 @@ class RadioSarajevo {
       }
     } catch (error) {
       console.log(chalk.bold.red(`${this.constructor.name}: ${error.message}`))
+    } finally {
+      console.log(chalk.gray(`${this.constructor.name} done`))
     }
   }
 

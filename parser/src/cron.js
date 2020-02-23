@@ -17,7 +17,6 @@ class Cron {
   }
 
   async processFeeds () {
-    console.log(chalk.yellow('--- cron starting parser ---'))
     const parser = new Parser()
     await parser.run()
   }

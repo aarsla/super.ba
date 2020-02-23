@@ -14,9 +14,7 @@ class Parser {
     try {
       await this.processFeeds()
     } catch (error) {
-
-    } finally {
-      db.close()
+      console.log(chalk.red(`Parser error: ${error.message}`))
     }
   }
 
@@ -45,7 +43,7 @@ class Parser {
     await Promise.all(parsers)
 
     const stop = moment().format('YYYY-MM-DD HH:mm:ss')
-    console.log(chalk.green(`${stop} : feeds processed`))
+    console.log(chalk.green(`${stop} : parser finished`))
   }
 }
 

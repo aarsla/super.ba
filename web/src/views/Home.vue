@@ -4,7 +4,7 @@
       <Header />
     </a-layout-header>
     <a-layout-header>
-      <Source :sources="sources" />
+      <!-- <Source :sources="sources" /> -->
     </a-layout-header>
     <a-layout-content>
       <a-row
@@ -40,7 +40,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import Source from '@/components/controls/Source.vue'
+// import Source from '@/components/controls/Source.vue'
 import ArticleList from '@/components/ArticleList.vue'
 import { mapState } from 'vuex'
 
@@ -48,7 +48,7 @@ export default {
   name: 'SuperBaApp',
   components: {
     Header,
-    Source,
+    // Source,
     ArticleList
   },
   created () {
