@@ -4,14 +4,17 @@ const Article = require('./model/article')
 const db = require('./model/db')
 const ArticleModel = db.model('Article')
 
-const feed = 'https://www.klix.ba/rss/svevijesti'
+const feed = 'http://balkans.aljazeera.net/mobile/articles'
 const source = {
-  title: 'Klix',
-  url: 'https://klix.ba/',
-  logo: 'https://www.klix.ba/images/logo.png'
+  title: 'Al Jazeera Balkans',
+  url: 'http://http://balkans.aljazeera.net/',
+  logo: 'http://balkans.aljazeera.net/sites/default/themes/custom/ajbalkans/logo.png'
 }
 
-class Klix {
+const imageRegex = /<img[^>]+src="?([^"\s]+)"?[^>]*\/>/
+const pRegex = /(?!>)([^><]+)(?=<\/p>)/
+
+class AlJazeera {
   constructor () {
     this.items = []
   }
@@ -25,11 +28,17 @@ class Klix {
       for (const item of this.items) {
         if (await this.articleExists(item)) { return }
 
+        const regexResults = imageRegex.exec(item.summary)
+        const image = regexResults ? regexResults[1] : null
+
+        const pResults = pRegex.exec(item.summary)
+        const pContent = pResults ? pResults[0] : null
+
         await new Article(item.title)
-          .setDescription(item.description)
+          .setDescription(pContent || null)
           .setPubDate(item.pubDate)
           .setLink(item.link)
-          .setImage(item.enclosures ? item.enclosures[0].url : '')
+          .setImage(image || '')
           .setCategory({ title: 'BiH' })
           .setSource(source)
           .save()
@@ -49,4 +58,4 @@ class Klix {
   }
 }
 
-module.exports = new Klix()
+module.exports = new AlJazeera()

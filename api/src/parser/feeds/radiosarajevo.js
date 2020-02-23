@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const baseParser = require('./baseParser')
 const Article = require('./model/article')
 const db = require('./model/db')
@@ -10,7 +11,7 @@ const source = {
   logo: 'http://www.radiosarajevo.ba//build/img/logo-s.png'
 }
 
-const regex = /<img[^>]+src="?([^"\s]+)"?[^>]*\/>/g
+const imageRegex = /<img[^>]+src="?([^"\s]+)"?[^>]*\/>/
 
 class RadioSarajevo {
   constructor () {
@@ -21,25 +22,25 @@ class RadioSarajevo {
     try {
       this.items = await baseParser(feed)
 
+      console.log(chalk.yellow(`${this.constructor.name} ...`))
+
       for (const item of this.items) {
         if (await this.articleExists(item)) { return }
 
-        const regexResults = regex.exec(item.summary)
-        const imageLink = regexResults ? regexResults[1] : null
+        const regexResults = imageRegex.exec(item.summary)
+        const image = regexResults ? regexResults[1] : null
 
         await new Article(item.title)
           .setDescription(item.description)
           .setPubDate(item.pubDate)
           .setLink(item.link)
-          .setImage(imageLink || '')
+          .setImage(image || '')
           .setCategory({ title: 'BiH' })
           .setSource(source)
           .save()
       }
     } catch (error) {
-      console.log(`${this.constructor.name}: ${error.message}`)
-    } finally {
-      db.close()
+      console.log(chalk.bold.red(`${this.constructor.name}: ${error.message}`))
     }
   }
 
