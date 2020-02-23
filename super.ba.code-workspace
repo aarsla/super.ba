@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "docker"
+		},
+		{
+			"path": "parser"
 		}
 	],
 	"settings": {}

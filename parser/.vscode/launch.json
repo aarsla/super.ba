@@ -7,8 +7,8 @@
         {
             "type": "node",
             "request": "attach",
-            "name": "Docker: Attach to API",
-            "port": 9229,
+            "name": "Docker: Attach to Parser",
+            "port": 9230,
             "address": "localhost",
             "localRoot": "${workspaceFolder}",
             "remoteRoot": "/opt/project",

@@ -1,8 +1,8 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 const config = require('config')
-const articleSchema = require('../../../models/schema/article')
-const uri = config.mongodb.test
+const articleSchema = require('./schema/article')
+const uri = config.mongodb.uri
 
 const options = {
   useCreateIndex: true,

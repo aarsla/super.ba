@@ -5,7 +5,15 @@ const stringToStream = require('string-to-stream')
 module.exports = async function feedParse (url) {
   const feedparser = new FeedParser()
 
-  return axios({ method: 'get', url: url, timeout: 3000 })
+  return axios({
+    method: 'get',
+    url: url,
+    timeout: 3000,
+    headers: {
+      accept: 'text/html,application/xhtml+xml',
+      'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36'
+    }
+  })
     .then(res => {
       stringToStream(res.data).pipe(feedparser)
     })

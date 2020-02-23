@@ -89,6 +89,25 @@ services:
         max-size: "100MB"
         max-file: "3"
 
+  parser:
+    image: node:12
+    container_name: superba_parser
+    depends_on:
+      - mongodb
+    volumes:
+      - ./parser:/opt/project/
+    working_dir: /opt/project
+    command: yarn dev
+    networks:
+      - backend
+    ports:
+      - "9230:9230"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+
   dozzle:
     container_name: superba_dozzle
     image: amir20/dozzle:latest

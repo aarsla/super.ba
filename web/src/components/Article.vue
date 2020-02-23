@@ -56,7 +56,12 @@
         </a>
       </a-col>
       <a-col :span="16">
-        <p>{{ article.description }}</p>
+        <div v-if="article.description">
+          {{ article.description }}
+        </div>
+        <div v-else>
+          ...
+        </div>
       </a-col>
     </a-row>
     <a-card-meta class="meta">
@@ -74,7 +79,9 @@
           {{ article.source.title }}
         </a>
         <div class="pubDate right">
-          {{ pubDate }}
+          <div v-if="pubDate">
+            {{ pubDate }}
+          </div>
         </div>
       </template>
     </a-card-meta>

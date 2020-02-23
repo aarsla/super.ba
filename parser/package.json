@@ -1,35 +1,28 @@
 {
-  "name": "super.ba-api",
+  "name": "super.ba-parser",
   "version": "1.0.0",
-  "description": "Super.ba API",
+  "description": "Super.ba feed parser",
   "main": "index.js",
   "author": "aarsla@gmail.com",
   "license": "Unlicensed",
   "private": true,
   "scripts": {
     "start": "nodemon",
-    "dev": "nodemon --inspect=0.0.0.0:9229",
+    "dev": "nodemon --inspect=0.0.0.0:9230",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@hapi/boom": "^9.0.0",
-    "api-query-params": "^4.15.0",
     "axios": "^0.19.2",
     "chalk": "^3.0.0",
     "config": "^3.2.6",
+    "cron": "^1.8.2",
     "dotenv": "^8.2.0",
-    "fastify": "^2.12.0",
-    "fastify-compress": "^2.0.1",
-    "fastify-cors": "^3.0.2",
-    "fastify-helmet": "^3.0.2",
-    "fastify-jwt": "^1.2.1",
-    "fastify-plugin": "^1.6.0",
-    "fastify-swagger": "^2.5.0",
-    "ioredis": "^4.16.0",
+    "feedparser": "^2.2.9",
+    "iconv": "^2.3.5",
     "moment": "^2.24.0",
     "mongoose": "^5.9.1",
-    "mongoose-paginate-v2": "^1.3.6",
-    "pino-pretty": "^3.6.0"
+    "string-to-stream": "^3.0.1",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.2",
