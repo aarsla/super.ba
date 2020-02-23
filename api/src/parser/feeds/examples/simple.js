@@ -1,9 +1,9 @@
 const FeedParser = require('feedparser')
 const fs = require('fs')
 const path = require('path')
-const feed = path.join(__dirname, './xml/klix.xml')
+const feed = path.join(__dirname, './xml/feed.xml')
 
-fs.createReadStream(feed)
+module.exports = fs.createReadStream(feed)
   .on('error', function (error) {
     console.error(error)
   })

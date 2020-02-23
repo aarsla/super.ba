@@ -1,15 +1,15 @@
-const db = require('./db')
-const Article = db.model('Article')
+const chalk = require('chalk')
+const klixParser = require('./feeds/klix')
 
 async function runParser () {
   try {
-    const article = await Article.findOne({ _id: '5e3b3a930afe75049310f66b' })
-    console.log(article.title)
+    await klixParser.process()
   } catch (error) {
-
-  } finally {
-    db.close()
+    console.log('ERR: ', error.message)
   }
+
+  console.log(chalk.bold.gray('==========='))
+  console.log(chalk.bold.green('Parser done'))
 }
 
 runParser()

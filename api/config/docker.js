@@ -8,7 +8,8 @@ module.exports = {
     }
   },
   mongodb: {
-    uri: 'mongodb://mongodb:27017/news'
+    uri: 'mongodb://mongodb:27017/news',
+    test: 'mongodb://mongodb:27017/test'
   },
   redis: 'redis://redis:6379',
   domain: 'http://web:3366',
