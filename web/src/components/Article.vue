@@ -45,10 +45,15 @@
           target="_blank"
         >
           <img
+            v-if="article.image"
             class="image"
             :alt="article.title"
             :src="article.image"
-          ></a>
+          >
+          <a-empty v-else>
+            <span slot="description" />
+          </a-empty>
+        </a>
       </a-col>
       <a-col :span="16">
         <p>{{ article.description }}</p>
@@ -181,7 +186,7 @@ p {
 
 .meta .pubDate {
   color:#0275d8;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .meta .right {

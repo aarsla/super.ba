@@ -3,14 +3,16 @@ const Article = require('./model/article')
 const db = require('./model/db')
 const ArticleModel = db.model('Article')
 
-const feed = 'https://www.klix.ba/rss/svevijesti'
+const feed = 'https://www.radiosarajevo.ba/rss'
 const source = {
-  title: 'Klix',
-  url: 'https://klix.ba/',
-  logo: 'https://www.klix.ba/images/logo.png'
+  title: 'Radio Sarajevo',
+  url: 'http://radiosarajevo.ba',
+  logo: 'http://www.radiosarajevo.ba//build/img/logo-s.png'
 }
 
-class Klix {
+const regex = /<img[^>]+src="?([^"\s]+)"?[^>]*\/>/g
+
+class RadioSarajevo {
   constructor () {
     this.items = []
   }
@@ -22,11 +24,14 @@ class Klix {
       for (const item of this.items) {
         if (await this.articleExists(item)) { return }
 
+        const regexResults = regex.exec(item.summary)
+        const imageLink = regexResults ? regexResults[1] : null
+
         await new Article(item.title)
           .setDescription(item.description)
           .setPubDate(item.pubDate)
           .setLink(item.link)
-          .setImage(item.enclosures ? item.enclosures[0].url : '')
+          .setImage(imageLink || '')
           .setCategory({ title: 'BiH' })
           .setSource(source)
           .save()
@@ -48,4 +53,4 @@ class Klix {
   }
 }
 
-module.exports = new Klix()
+module.exports = new RadioSarajevo()
