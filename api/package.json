@@ -7,8 +7,8 @@
   "license": "Unlicensed",
   "private": true,
   "scripts": {
-    "start": "nodemon",
-    "dev": "nodemon --inspect=0.0.0.0:9229",
+    "start": "node_modules/nodemon/bin/nodemon.js",
+    "dev": "node_modules/nodemon/bin/nodemon.js --inspect=0.0.0.0:9229",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
