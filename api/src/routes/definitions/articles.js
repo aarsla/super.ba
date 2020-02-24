@@ -1,5 +1,5 @@
 const articleService = require('../../services/articles')
-const documentation = require('../documentation/articleApi')
+const documentation = require('../documentation/articles')
 
 const routes = [
   {
