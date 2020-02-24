@@ -18,7 +18,7 @@ module.exports = (socket, req) => {
 
     try {
       const data = JSON.parse(message)
-      send(socket, { response: data })
+      send(socket, data)
     } catch (error) {
       socket.send('Invalid JSON payload')
     }

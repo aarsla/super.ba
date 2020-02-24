@@ -13,9 +13,10 @@ Vue.use(Antd)
 Vue.use(VueNativeSock, process.env.VUE_APP_WS_URL, {
   store: store,
   format: 'json',
-  reconnection: true,
+  connectManually: true,
+  reconnection: false
   // reconnectionAttempts: 5,
-  reconnectionDelay: 3000
+  // reconnectionDelay: 3000
 })
 
 Vue.config.productionTip = false

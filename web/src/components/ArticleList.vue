@@ -26,12 +26,22 @@ export default {
     Article
   },
   created () {
-    this.$options.sockets.onmessage = (msg) => {
-      this.$notification.success({
-        message: 'New article',
-        description:
-            msg.data
-      })
+    this.$options.sockets.onmessage = (payload) => {
+      try {
+        const msg = JSON.parse(payload.data)
+
+        this.$notification.success({
+          message: msg.title,
+          description:
+            msg.message
+        })
+      } catch (error) {
+        this.$notification.error({
+          message: error.name,
+          description:
+            error.message
+        })
+      }
     }
   }
 }

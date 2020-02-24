@@ -1,5 +1,17 @@
 <template>
   <a-row>
+    <a-col :span="1">
+      <a-badge
+        v-if="isWsConnected"
+        class="ws-indicator"
+        status="success"
+      />
+      <a-badge
+        v-else
+        class="ws-indicator"
+        status="default"
+      />
+    </a-col>
     <a-col :span="4">
       <div class="logo">
         <router-link to="/">
@@ -7,9 +19,7 @@
         </router-link>
       </div>
     </a-col>
-    <a-col
-      :span="20"
-    >
+    <a-col :span="19">
       <a-row
         type="flex"
         justify="space-around"
@@ -75,15 +85,20 @@ export default {
   },
   data () {
     return {
-      isDrawerVisible: false,
+      isDrawerVisible: true,
       isAboutModalVisible: false
     }
   },
-  // computed: {
-  //   isWsConnected () {
-  //     return this.$store.state.socket.isConnected
-  //   }
-  // },
+  computed: {
+    isWsConnected: {
+      get () {
+        return this.$store.state.socket.isConnected
+      },
+      set (value) {
+        return value
+      }
+    }
+  },
   methods: {
     showAboutModal () {
       this.isAboutModalVisible = true
@@ -97,9 +112,6 @@ export default {
     hideSettings () {
       this.isDrawerVisible = false
     }
-    // sendMessage () {
-    //   this.$socket.sendObj({ awesome: 'data' })
-    // }
   }
 }
 </script>
@@ -110,5 +122,9 @@ export default {
 }
 .right {
   float: right;
+}
+
+.ws-indicator {
+  margin: 3px;
 }
 </style>

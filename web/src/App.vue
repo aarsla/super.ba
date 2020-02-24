@@ -12,6 +12,15 @@
   </div>
 </template>
 
+<script>
+export default {
+  created () {
+    if (this.$store.state.liveMode) {
+      this.$connect(process.env.VUE_APP_WS_URL)
+    }
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

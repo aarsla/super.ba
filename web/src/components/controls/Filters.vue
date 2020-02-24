@@ -25,7 +25,6 @@ export default {
     }
   },
   computed: {
-
     checkedList: {
       get () {
         return this.$store.state.params.filters

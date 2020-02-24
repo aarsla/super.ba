@@ -15,6 +15,7 @@ export default new Vuex.Store({
     sources: [],
     articleId: String,
     articles: [],
+    liveMode: Boolean,
     params: {
       query: '',
       date: null,
@@ -78,6 +79,9 @@ export default new Vuex.Store({
     SET_SOURCES (state, sources) {
       state.sources = sources
     },
+    SET_LIVE_MODE (state, liveMode) {
+      state.liveMode = liveMode
+    },
     SET_ARTICLE_ID (state, articleId) {
       state.articleId = articleId
     },
@@ -132,6 +136,9 @@ export default new Vuex.Store({
     setArticle ({ commit, dispatch }, articleId) {
       commit('SET_ARTICLE_ID', articleId)
     },
+    setLiveMode ({ commit }, liveMode) {
+      commit('SET_LIVE_MODE', liveMode)
+    },
     async fetchSources (context) {
       context.commit('SET_LOADING_STATUS', true)
 
@@ -177,7 +184,7 @@ export default new Vuex.Store({
   plugins: [
     new VuexPersistence({
       key: 'super.ba',
-      reducer: state => ({ token: state.currentJWT, params: state.params })
+      reducer: state => ({ token: state.currentJWT, liveMode: state.liveMode, params: state.params })
     }).plugin
   ]
 })

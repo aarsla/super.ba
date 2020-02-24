@@ -121,7 +121,7 @@ export default {
   },
   methods: {
     onCopy: function (e) {
-      this.$notification.success({
+      this.$notification.info({
         message: 'Link copied',
         description:
             'Share link has been copied to your clipboard.'

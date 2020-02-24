@@ -9,7 +9,7 @@ class Cron {
 
     this.job = new CronJob(schedule, async () => {
       await this.processFeeds()
-    }, null, true, 'Europe/Sarajevo')
+    }, null, false, 'Europe/Sarajevo')
 
     if (start) {
       this.job.start()
