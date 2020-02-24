@@ -1,21 +1,23 @@
 const send = (socket, data) => {
   try {
-    const d = JSON.stringify({
+    const payload = JSON.stringify({
       ...data
     })
 
-    socket.send(d)
+    socket.send(payload)
   } catch (error) {
-    socket.send(error.message)
+    console.log(error.message)
   }
 }
 
 module.exports = (socket, req) => {
   console.log('WS client connected')
 
-  socket.on('message', (msg) => {
+  socket.on('message', (message) => {
+    console.log('Received message => ', message)
+
     try {
-      const data = JSON.parse(msg)
+      const data = JSON.parse(message)
       send(socket, { response: data })
     } catch (error) {
       socket.send('Invalid JSON payload')

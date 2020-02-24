@@ -23,6 +23,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.9.1",
     "string-to-stream": "^3.0.1",
+    "ws": "^7.2.1",
     "zlib": "^1.0.5"
   },
   "devDependencies": {
