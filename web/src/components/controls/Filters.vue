@@ -15,11 +15,6 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'Filters',
-  data () {
-    return {
-      checkedList: this.$store.state.params.filters
-    }
-  },
   props: {
     sources: {
       type: Array,
@@ -30,6 +25,15 @@ export default {
     }
   },
   computed: {
+
+    checkedList: {
+      get () {
+        return this.$store.state.params.filters
+      },
+      set (value) {
+        return value
+      }
+    },
     plainOptions () {
       return this.$store.state.sources.map(source => source.title)
     }

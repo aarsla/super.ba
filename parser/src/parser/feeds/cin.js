@@ -6,7 +6,7 @@ const ArticleModel = db.model('Article')
 
 const feed = 'https://www.cin.ba/feed/'
 const source = {
-  title: 'Cin',
+  title: 'CIN',
   url: 'https://www.cin.ba/',
   logo: 'https://www.cin.ba/wp-content/uploads/2016/09/logocin-300x246.jpg'
 }

@@ -13,6 +13,7 @@ const routes = [
     url: '/api/articles/:id',
     handler: articleService.getArticle,
     schema: documentation.getArticleSchema
-  }]
+  }
+]
 
 module.exports = routes

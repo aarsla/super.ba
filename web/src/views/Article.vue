@@ -3,9 +3,7 @@
     <a-layout-header>
       <Header />
     </a-layout-header>
-    <a-layout-header>
-      <Source :sources="sources" />
-    </a-layout-header>
+    <Sources :sources="sources" />
     <a-layout-content>
       <a-row
         type="flex"
@@ -40,7 +38,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import Source from '@/components/controls/Source.vue'
+import Sources from '@/components/controls/Sources.vue'
 import ArticleList from '@/components/ArticleList.vue'
 import { mapState } from 'vuex'
 
@@ -48,7 +46,7 @@ export default {
   name: 'SuperBaApp',
   components: {
     Header,
-    Source,
+    Sources,
     ArticleList
   },
   created () {
@@ -67,10 +65,12 @@ export default {
 .layout {
   margin: 0 auto;
   max-width: 768px;
+  background: rgba(255, 255, 255, 1.0);
 }
 
 .layout .ant-layout-header {
   padding: 0 10px 0 10px;
+  margin-bottom: 30px;
   text-align: left;
   background: rgba(255, 255, 255, 1.0);
 }
