@@ -20,6 +20,7 @@ export default new Vuex.Store({
       query: '',
       date: null,
       filters: [],
+      channels: [],
       category: 'BiH',
       limit: 3,
       offset: 0
@@ -69,6 +70,9 @@ export default new Vuex.Store({
     },
     SET_PARAMS_FILTERS (state, filters) {
       state.params.filters = filters
+    },
+    SET_PARAMS_CHANNELS (state, channels) {
+      state.params.channels = channels
     },
     SET_PARAMS_QUERY (state, query) {
       state.params.query = query
@@ -132,6 +136,13 @@ export default new Vuex.Store({
     setFilters ({ commit, dispatch }, filters) {
       commit('SET_PARAMS_FILTERS', filters)
       dispatch('fetchArticles')
+    },
+    setChannels ({ commit, dispatch }, channels) {
+      const sources = this.state.sources.map((o) => o.title)
+      const filters = this.state.params.filters
+      const inversedChannels = sources.filter((o) => !filters.includes(o))
+
+      commit('SET_PARAMS_CHANNELS', inversedChannels)
     },
     setArticle ({ commit, dispatch }, articleId) {
       commit('SET_ARTICLE_ID', articleId)

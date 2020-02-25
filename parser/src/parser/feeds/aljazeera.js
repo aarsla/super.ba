@@ -3,6 +3,7 @@ const baseParser = require('./baseParser')
 const Article = require('./model/article')
 const db = require('./model/db')
 const ArticleModel = db.model('Article')
+// const WsClient = require('../../ws')
 
 const feed = 'http://balkans.aljazeera.net/mobile/articles'
 const source = {
@@ -23,6 +24,8 @@ class AlJazeera {
     try {
       this.items = await baseParser(feed)
 
+      // const wsClient = new WsClient(source.title)
+
       for (const item of this.items) {
         if (await this.articleExists(item)) { return }
 
@@ -32,7 +35,7 @@ class AlJazeera {
         const pResults = pRegex.exec(item.summary)
         const pContent = pResults ? pResults[0] : null
 
-        await new Article(item.title)
+        const article = await new Article(item.title)
           .setDescription(pContent || null)
           .setPubDate(item.pubDate)
           .setLink(item.link)
@@ -40,6 +43,9 @@ class AlJazeera {
           .setCategory({ title: 'BiH' })
           .setSource(source)
           .save()
+
+        // article._id = Math.random().toString(36).substring(7)
+        // wsClient.sendMessage(article)
       }
     } catch (error) {
       console.log(chalk.bold.red(`${this.constructor.name}: ${error.message}`))

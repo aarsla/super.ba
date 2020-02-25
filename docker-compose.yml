@@ -93,7 +93,7 @@ services:
     image: node:12
     container_name: superba_parser
     depends_on:
-      - mongodb
+      - api
     volumes:
       - ./parser:/opt/project/
     working_dir: /opt/project

@@ -7,18 +7,6 @@
     :visible="isDrawerVisible"
   >
     <a-divider orientation="left">
-      Hide news from
-    </a-divider>
-    <Filters />
-    <a-divider :dashed="true" />
-    <a-button
-      type="primary"
-      class="center"
-      @click="showAll"
-    >
-      Show all
-    </a-button>
-    <a-divider orientation="left">
       Live mode
     </a-divider>
     <a-row>
@@ -34,17 +22,24 @@
         Enable to update news feed in real time
       </a-col>
     </a-row>
-    <a-divider
-      :dashed="
-        true"
-    />
     <a-button
       type="primary"
-      class="center"
+      class="center spaced"
       :disabled="! isWsConnected"
-      @click="sendMessage"
+      @click="sendTestMessage"
     >
       Test live mode
+    </a-button>
+    <a-divider orientation="left">
+      Hide news from
+    </a-divider>
+    <Filters />
+    <a-button
+      type="primary"
+      class="center spaced"
+      @click="showAll"
+    >
+      Show all
     </a-button>
     <a-divider :dashed="true" />
   </a-drawer>
@@ -76,17 +71,27 @@ export default {
     showAll () {
       this.$store.dispatch('setFilters', [])
     },
-    sendMessage () {
-      this.$socket.sendObj({ title: 'Hello there!', message: 'Looks like it\'s working' })
+    sendTestMessage () {
+      this.$socket.sendObj({ title: 'Hello there!', message: 'Live mode is working' })
     },
     togggleWs (checked) {
-      if (checked) {
-        this.$connect(process.env.VUE_APP_WS_URL)
-      } else {
+      if (this.$socket) {
         this.$socket.close()
       }
 
+      if (checked) {
+        this.$connect(process.env.VUE_APP_WS_URL)
+        // this.subscribeToChannels()
+      }
+
       this.$store.dispatch('setLiveMode', checked)
+    },
+    subscribeToChannels () {
+      const channels = this.$store.state.params.channels
+      channels.forEach(channel => {
+        const url = `${process.env.VUE_APP_WS_URL}/${channel}`
+        this.$connect(url)
+      })
     }
   }
 }
@@ -98,5 +103,9 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.spaced {
+  margin: 30px auto;
 }
 </style>

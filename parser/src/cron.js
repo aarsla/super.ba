@@ -1,7 +1,6 @@
 const chalk = require('chalk')
 const CronJob = require('cron').CronJob
 const Parser = require('./parser/parser')
-const WsClient = require('./ws')
 
 class Cron {
   constructor (schedule, start) {
@@ -15,7 +14,6 @@ class Cron {
       this.job.start()
       console.log(chalk.green('Cron started'))
     }
-    this.wsClient = new WsClient()
   }
 
   async processFeeds () {

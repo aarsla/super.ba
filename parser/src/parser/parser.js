@@ -1,5 +1,4 @@
 const chalk = require('chalk')
-const db = require('./feeds/model/db')
 const aljazeeraParser = require('./feeds/aljazeera')
 const avazParser = require('./feeds/avaz')
 const cinParser = require('./feeds/cin')

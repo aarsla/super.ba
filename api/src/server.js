@@ -1,7 +1,7 @@
 const config = require('config')
 const publicRoutes = require('./routes/public')
 const privateRoutes = require('./routes/private')
-const fastifyWs = require('./plugins/fastify-ws')
+const wsRoutes = require('./routes/ws')
 const swagger = require('./config/swagger')
 
 function fastifyServer () {
@@ -13,7 +13,6 @@ function fastifyServer () {
   fastify.register(require('./plugins/fastify-mongoose'), config.mongodb)
   fastify.register(require('fastify-swagger'), swagger.options)
   fastify.register(require('fastify-jwt'), { secret: config.jwt.secret })
-  fastify.register(require('fastify-ws'))
 
   fastify.decorate('authenticate', async function (request, reply) {
     try {
@@ -28,11 +27,10 @@ function fastifyServer () {
   })
 
   fastify.register(privateRoutes)
+  fastify.register(wsRoutes)
 
   fastify.ready(err => {
     if (err) throw err
-
-    fastify.ws.on('connection', fastifyWs)
     fastify.swagger()
   })
 

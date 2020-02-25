@@ -3,6 +3,7 @@
     :loading="this.$store.state.isLoading"
     :hoverable="true"
     class="card"
+    :key="article._id"
   >
     <a-row align="bottom">
       <a-col
@@ -19,7 +20,7 @@
         :span="1"
       >
         <a-button
-          title="Copy link to article"
+          title="Copy article link"
           size="small"
           shape="circle"
           type="dashed"
@@ -122,16 +123,16 @@ export default {
   methods: {
     onCopy: function (e) {
       this.$notification.info({
-        message: 'Link copied',
+        message: 'Share away',
         description:
-            'Share link has been copied to your clipboard.'
+            'Link is in your clipboard now'
       })
     },
     onError: function (e) {
       this.$notification.open({
         message: 'Error copying link',
         description:
-            'We were not able to copy shre link to your clipboard!',
+            'We were not able to copy share link to your clipboard!',
         onClick: () => {}
       })
     }

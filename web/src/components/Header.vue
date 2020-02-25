@@ -85,7 +85,7 @@ export default {
   },
   data () {
     return {
-      isDrawerVisible: true,
+      isDrawerVisible: false,
       isAboutModalVisible: false
     }
   },
