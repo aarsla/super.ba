@@ -72,23 +72,6 @@ services:
         max-size: "100MB"
         max-file: "3"
 
-  redis:
-    image: redis:5.0.7
-    container_name: superba_redis
-    networks:
-      - backend
-    volumes:
-      - redis:/data/
-    ports:
-      - "6379:6379"
-    entrypoint: redis-server --appendonly yes
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100MB"
-        max-file: "3"
-
   parser:
     image: node:12
     container_name: superba_parser
@@ -108,6 +91,24 @@ services:
         max-size: "100MB"
         max-file: "3"
 
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: superba_rabbitmq
+    volumes:
+      - rabbitmq:/data
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+  
   dozzle:
     container_name: superba_dozzle
     image: amir20/dozzle:latest
@@ -125,3 +126,4 @@ networks:
 volumes:
   mongodb:
   redis:
+  rabbitmq:

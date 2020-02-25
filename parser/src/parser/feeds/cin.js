@@ -19,7 +19,6 @@ class Cin {
   async process () {
     try {
       this.items = await baseParser(feed)
-
       for (const item of this.items) {
         if (await this.articleExists(item)) { return }
 

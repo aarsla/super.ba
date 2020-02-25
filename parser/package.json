@@ -13,6 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "amqplib": "^0.5.5",
     "axios": "^0.19.2",
     "chalk": "^3.0.0",
     "config": "^3.2.6",
@@ -23,7 +24,6 @@
     "moment": "^2.24.0",
     "mongoose": "^5.9.1",
     "string-to-stream": "^3.0.1",
-    "ws": "^7.2.1",
     "zlib": "^1.0.5"
   },
   "devDependencies": {

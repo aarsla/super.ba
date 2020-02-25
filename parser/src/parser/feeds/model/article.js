@@ -1,5 +1,6 @@
 const db = require('./db')
 const ArticleModel = db.model('Article')
+const RabbitMqClient = require('../../../rmq')
 
 class Article {
   constructor (title) {
@@ -43,6 +44,9 @@ class Article {
   }
 
   async save () {
+    const rmqClient = await new RabbitMqClient().instance
+    await rmqClient.sendMessage(this)
+
     const article = new ArticleModel(this)
     await article.save()
   }

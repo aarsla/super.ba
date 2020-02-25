@@ -29,7 +29,7 @@ class Parser {
     const n1info = n1infoParser.process()
     const radioSarajevo = radioSarajevoParser.process()
 
-    const parsers = [
+    const parserPromises = [
       avaz,
       cin,
       aljazeera,
@@ -39,7 +39,7 @@ class Parser {
       radioSarajevo
     ]
 
-    await Promise.all(parsers)
+    await Promise.all(parserPromises)
 
     const stop = moment().format('YYYY-MM-DD HH:mm:ss')
     console.log(chalk.green(`${stop} : parser finished`))

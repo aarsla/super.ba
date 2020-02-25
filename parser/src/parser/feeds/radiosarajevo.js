@@ -28,7 +28,7 @@ class RadioSarajevo {
         const regexResults = imageRegex.exec(item.summary)
         const image = regexResults ? regexResults[1] : null
 
-        await new Article(item.title)
+        new Article(item.title)
           .setDescription(item.description)
           .setPubDate(item.pubDate)
           .setLink(item.link)
