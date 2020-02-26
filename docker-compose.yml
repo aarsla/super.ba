@@ -1,8 +1,43 @@
-version: "2"
+version: "3"
 services:
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: super_rabbitmq
+    volumes:
+      - rabbitmq:/data
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+  
+  mongodb:
+    image: mongo:4.2.2
+    container_name: super_mongodb
+    depends_on: 
+      - rabbitmq
+    volumes:
+      - mongodb:/data/db/
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+
   api:
     image: node:12
-    container_name: superba_api
+    container_name: super_api
     depends_on:
       - mongodb
     volumes:
@@ -21,9 +56,29 @@ services:
         max-size: "100MB"
         max-file: "3"
 
+  parser:
+    image: node:12
+    container_name: super_parser
+    depends_on:
+      # - api
+      - mongodb
+    volumes:
+      - ./parser:/opt/project/
+    working_dir: /opt/project
+    command: yarn dev
+    networks:
+      - backend
+    ports:
+      - "9230:9230"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+
   web:
     image: node:12
-    container_name: superba_web
+    container_name: super_web
     depends_on:
       - api
     volumes:
@@ -42,7 +97,7 @@ services:
 
   nginx:
     image: nginx:stable
-    container_name: superba_nginx
+    container_name: super_nginx
     depends_on:
       - web
     networks:
@@ -56,61 +111,9 @@ services:
       options:
         max-size: "100MB"
         max-file: "3"
-
-  mongodb:
-    image: mongo:4.2.1
-    container_name: superba_mongodb
-    volumes:
-      - mongodb:/data/db/
-    ports:
-      - "27017:27017"
-    networks:
-      - backend
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100MB"
-        max-file: "3"
-
-  parser:
-    image: node:12
-    container_name: superba_parser
-    depends_on:
-      - api
-    volumes:
-      - ./parser:/opt/project/
-    working_dir: /opt/project
-    command: yarn dev
-    networks:
-      - backend
-    ports:
-      - "9230:9230"
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100MB"
-        max-file: "3"
-
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: superba_rabbitmq
-    volumes:
-      - rabbitmq:/data
-    networks:
-      - backend
-      - frontend
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100MB"
-        max-file: "3"
   
   dozzle:
-    container_name: superba_dozzle
+    container_name: super_dozzle
     image: amir20/dozzle:latest
     environment:
       - DOZZLE_TAILSIZE=100
@@ -120,6 +123,7 @@ services:
       - "9999:8080"
 
 networks:
+  default:
   backend:
   frontend:
 

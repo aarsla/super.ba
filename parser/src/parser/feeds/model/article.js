@@ -1,6 +1,5 @@
-const db = require('./db')
-const ArticleModel = db.model('Article')
-const RabbitMqClient = require('../../../rmq')
+const ArticleModel = require('./mongooseArticle')
+// const AmqpClient = require('../../../AmqpClient')
 
 class Article {
   constructor (title) {
@@ -44,11 +43,26 @@ class Article {
   }
 
   async save () {
-    const rmqClient = await new RabbitMqClient().instance
-    await rmqClient.sendMessage(this)
+    const existingArticle = await ArticleModel.findOne(
+      {
+        title: this.title,
+        'source.title': this.source.title
+      }
+    )
 
-    const article = new ArticleModel(this)
-    await article.save()
+    if (!existingArticle) {
+      const article = await new ArticleModel(this)
+      await article.save()
+    }
+
+    return this
+  }
+
+  async notify () {
+    // const producer = await new AmqpClient().instance
+    // if (producer && producer.channel) {
+    //   await producer.sendMessage(this)
+    // }
   }
 }
 

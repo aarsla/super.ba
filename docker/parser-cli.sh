@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker exec -it superba_parser bash -c "node src/parser/cli $*"
+docker exec -it super_parser bash -c "node src/parser/cli $*"

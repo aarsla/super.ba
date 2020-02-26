@@ -1,6 +1,6 @@
 const chalk = require('chalk')
-const db = require('./feeds/model/db')
-const ArticleModel = db.model('Article')
+const db = require('../../parser/db')
+const ArticleModel = require('../feeds/model/mongooseArticle')
 
 async function replacer () {
   await ArticleModel.updateMany({
@@ -10,13 +10,12 @@ async function replacer () {
 
 async function runReplacer () {
   try {
-    console.log(chalk.green('--- running replacer ---'))
     await replacer()
-    console.log(chalk.green('--- replacer complete ---'))
+    console.log(chalk.gray('--- replacer complete ---'))
   } catch (error) {
 
   } finally {
-    db.close()
+    db.mongoose.connection.close()
   }
 }
 

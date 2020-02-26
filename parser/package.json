@@ -21,9 +21,11 @@
     "dotenv": "^8.2.0",
     "feedparser": "^2.2.9",
     "iconv": "^2.3.5",
+    "lockfile": "^1.0.4",
     "moment": "^2.24.0",
-    "mongoose": "^5.9.1",
+    "mongoose": "^4.13.20",
     "string-to-stream": "^3.0.1",
+    "uuid": "^7.0.1",
     "zlib": "^1.0.5"
   },
   "devDependencies": {
