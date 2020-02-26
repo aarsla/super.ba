@@ -3,8 +3,6 @@ services:
   rabbitmq:
     image: rabbitmq:management-alpine
     container_name: super_rabbitmq
-    volumes:
-      - rabbitmq:/data
     networks:
       - backend
       - frontend
@@ -60,8 +58,7 @@ services:
     image: node:12
     container_name: super_parser
     depends_on:
-      # - api
-      - mongodb
+      - api
     volumes:
       - ./parser:/opt/project/
     working_dir: /opt/project
@@ -130,4 +127,3 @@ networks:
 volumes:
   mongodb:
   redis:
-  rabbitmq:

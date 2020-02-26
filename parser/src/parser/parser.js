@@ -72,6 +72,8 @@ class Parser {
     } catch (e) {
       console.log(chalk.red(`Failed to remove ${this.lockFileName}!`))
       throw e
+    } finally {
+      console.log()
     }
   }
 }

@@ -18,7 +18,6 @@ mongoose.connection.on('error', function () {
 
 mongoose.connection.on('disconnected', function () {
   console.log(chalk.yellow('Mongoose connection closed'))
-  console.log('\n')
 })
 
 mongoose.connect(uri, options)

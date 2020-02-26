@@ -1,5 +1,5 @@
 const ArticleModel = require('./mongooseArticle')
-// const AmqpClient = require('../../../AmqpClient')
+const Producer = require('../../../producer')
 
 class Article {
   constructor (title) {
@@ -53,16 +53,17 @@ class Article {
     if (!existingArticle) {
       const article = await new ArticleModel(this)
       await article.save()
+      await this.notify()
     }
 
     return this
   }
 
   async notify () {
-    // const producer = await new AmqpClient().instance
-    // if (producer && producer.channel) {
-    //   await producer.sendMessage(this)
-    // }
+    const producer = await new Producer().instance
+    if (producer && producer.channel) {
+      await producer.sendMessage(this)
+    }
   }
 }
 

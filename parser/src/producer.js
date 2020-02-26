@@ -23,7 +23,7 @@ const instance = (async () => {
         const message = JSON.stringify(article)
 
         await this.channel.assertQueue(qName, { durable: true, exclusive: false })
-        // this.channel.bindQueue(qName, this.exchangeName, routingKey)
+        this.channel.bindQueue(qName, this.exchangeName, routingKey)
 
         await this.channel.publish(this.exchangeName, routingKey, Buffer.from(message))
       } catch (error) {
