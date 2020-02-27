@@ -10,7 +10,7 @@ async function deleter (ArticleModel) {
   //   }
   // )
 
-  const dateTime = moment().subtract(6, 'hours')
+  const dateTime = moment().subtract(2, 'hours')
 
   await ArticleModel.deleteMany({
     pubDate: { $gt: dateTime }

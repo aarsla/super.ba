@@ -1,47 +1,35 @@
-const amqp = require('amqplib')
+const amqp = require('amqp-connection-manager')
 const amqpUrl = process.env.AMQP_URL
-const exchangeName = 'news'
+const EXCHANGE_NAME = 'news'
 
-const instance = (async () => {
-  this.exchangeName = exchangeName
+const connection = amqp.connect([amqpUrl])
+connection.on('connect', () => console.log('Ampq Connected!'))
+connection.on('disconnect', err => console.log('Ampq Disconnected.', err.stack))
 
-  try {
-    this.connection = await amqp.connect(amqpUrl)
-    this.channel = await this.connection.createChannel()
+let channelWrapper
 
-    await this.channel.assertExchange(exchangeName, 'direct')
+async function sendMessage (article) {
+  const QUEUE_NAME = article.source.title
+  const ROUTING_KEY = article.source.title
 
-    this.disconnect = async () => {
-      await this.channel.close()
-      await this.connection.close()
+  channelWrapper = connection.createChannel({
+    json: true,
+    setup: channel => {
+      channel.assertQueue(QUEUE_NAME, { durable: true, exclusive: false })
+      channel.bindQueue(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY)
+      return channel.assertExchange(EXCHANGE_NAME, 'direct', { durable: true })
     }
+  })
 
-    this.sendMessage = async (article) => {
-      try {
-        const qName = article.source.title
-        const routingKey = article.source.title
-        const message = JSON.stringify(article)
+  console.log(`Sending ${article.source.title} - ${article.title}`)
 
-        await this.channel.assertQueue(qName, { durable: true, exclusive: false })
-        this.channel.bindQueue(qName, this.exchangeName, routingKey)
-
-        await this.channel.publish(this.exchangeName, routingKey, Buffer.from(message))
-      } catch (error) {
-        console.log(error.message)
-      }
-    }
-
-    return this
-  } catch (error) {
-    console.log(error.message)
-    return undefined
-  }
-})()
-
-class Producer {
-  constructor () {
-    this.instance = instance
-  }
+  const message = JSON.stringify(article)
+  return channelWrapper.publish(EXCHANGE_NAME, QUEUE_NAME, message)
 }
 
-module.exports = Producer
+async function disconnect () {
+  channelWrapper.close()
+  connection.close()
+}
+
+module.exports = { connection, sendMessage, disconnect }

@@ -9,10 +9,7 @@ async function mongooseConnector (fastify, options, next) {
   const uri = process.env.NODE_ENV === 'test' ? process.env.MONGO_URL : options.uri
 
   const mongodbOptions = {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
+    useMongoClient: true
   }
 
   mongoose.Promise = global.Promise

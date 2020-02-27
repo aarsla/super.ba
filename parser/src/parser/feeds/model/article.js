@@ -1,5 +1,5 @@
 const ArticleModel = require('./mongooseArticle')
-const Producer = require('../../../producer')
+const producer = require('../../../producer')
 
 class Article {
   constructor (title) {
@@ -10,6 +10,26 @@ class Article {
     this.image = undefined
     this.category = {}
     this.source = {}
+  }
+
+  fromModel (model) {
+    this.title = model.title
+    this.description = model.description
+    this.pubDate = model.pubDate
+    this.link = model.link
+    this.image = model.image
+
+    this.category = {
+      title: model.category.title
+    }
+
+    this.source = {
+      title: model.source.title,
+      url: model.source.url,
+      logo: model.source.logo
+    }
+
+    return this
   }
 
   setDescription (value) {
@@ -60,9 +80,10 @@ class Article {
   }
 
   async notify () {
-    const producer = await new Producer().instance
-    if (producer && producer.channel) {
+    try {
       await producer.sendMessage(this)
+    } catch (error) {
+      console.log(`Notify: ${error.message}`)
     }
   }
 }
