@@ -1,9 +1,9 @@
 require('dotenv').config()
+
 const config = require('config')
 const chalk = require('chalk')
 const fastifyServer = require('./src/server')
 const server = fastifyServer()
-require('./src/subscriber')
 
 const start = async () => {
   try {

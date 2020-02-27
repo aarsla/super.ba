@@ -7,7 +7,9 @@ module.exports = {
   mongodb: {
     uri: process.env.MONGODB
   },
-  redis: process.env.REDIS,
+  amqp: {
+    uri: process.env.AMQP
+  },
   domain: process.env.DOMAIN,
   jwt: {
     secret: process.env.APP_SECRET

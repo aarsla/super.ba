@@ -11,7 +11,7 @@ module.exports = {
     uri: 'mongodb://mongodb:27017/news',
     test: 'mongodb://mongodb:27017/test'
   },
-  redis: 'redis://redis:6379',
+  amqp: 'amqp://rabbitmq:5672',
   domain: 'http://web:3366',
   jwt: {
     secret: process.env.APP_SECRET

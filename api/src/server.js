@@ -1,8 +1,9 @@
 const config = require('config')
 const publicRoutes = require('./routes/public')
 const privateRoutes = require('./routes/private')
-const wsRoutes = require('./routes/ws')
+const wsPingRoute = require('./routes/ws')
 const swagger = require('./config/swagger')
+// require('./src/subscriber')
 
 function fastifyServer () {
   const fastify = require('fastify')({ logger: config.server.logger })
@@ -11,6 +12,11 @@ function fastifyServer () {
   fastify.register(require('fastify-helmet'))
   fastify.register(require('fastify-cors'))
   fastify.register(require('./plugins/fastify-mongoose'), config.mongodb)
+
+  fastify.register(require('fastify-websocket'))
+  fastify.register(wsPingRoute)
+
+  // fastify.register(require('fastify-websocket'))
   fastify.register(require('fastify-swagger'), swagger.options)
   fastify.register(require('fastify-jwt'), { secret: config.jwt.secret })
 
@@ -27,7 +33,8 @@ function fastifyServer () {
   })
 
   fastify.register(privateRoutes)
-  fastify.register(wsRoutes)
+
+  fastify.register(require('./plugins/fastify-amqp'), config.amqp)
 
   fastify.ready(err => {
     if (err) throw err

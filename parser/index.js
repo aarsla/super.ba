@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const Cron = require('./src/cron')
 
 // const cronSchedule = '*/15 * * * * *'

@@ -1,10 +1,11 @@
+const config = require('config')
 const amqp = require('amqp-connection-manager')
-const amqpUrl = process.env.AMQP_URL
 const EXCHANGE_NAME = 'news'
 
-const connection = amqp.connect([amqpUrl])
+console.log(config.amqp)
+const connection = amqp.connect([config.amqp])
 connection.on('connect', () => console.log('Ampq Connected!'))
-connection.on('disconnect', err => console.log('Ampq Disconnected.', err.stack))
+connection.on('disconnect', err => console.log('Ampq Disconnected.', err))
 
 let channelWrapper
 
@@ -15,16 +16,18 @@ async function sendMessage (article) {
   channelWrapper = connection.createChannel({
     json: true,
     setup: channel => {
-      channel.assertQueue(QUEUE_NAME, { durable: true, exclusive: false })
-      channel.bindQueue(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY)
-      return channel.assertExchange(EXCHANGE_NAME, 'direct', { durable: true })
+      return Promise.all([
+        channel.assertQueue(QUEUE_NAME, { durable: true, exclusive: false }),
+        channel.bindQueue(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY),
+        channel.assertExchange(EXCHANGE_NAME, 'direct', { durable: true })
+      ])
     }
   })
 
   console.log(`Sending ${article.source.title} - ${article.title}`)
 
-  const message = JSON.stringify(article)
-  return channelWrapper.publish(EXCHANGE_NAME, QUEUE_NAME, message)
+  // const message = JSON.stringify(article)
+  return channelWrapper.publish(EXCHANGE_NAME, QUEUE_NAME, article)
 }
 
 async function disconnect () {

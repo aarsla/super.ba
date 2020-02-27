@@ -13,7 +13,7 @@ function prepareFilter (filter) {
 }
 
 exports.getArticles = async (req, reply) => {
-  const { filter, skip, limit, sort, projection, population } = aqp(req.query)
+  const { filter, skip, limit, sort, projection } = aqp(req.query)
 
   prepareFilter(filter)
 
@@ -24,7 +24,6 @@ exports.getArticles = async (req, reply) => {
       .limit(limit)
       .sort(sort || '-pubDate')
       .select(projection)
-      .populate(population)
 
     const result = await Article.paginate(query, paginatorOptions(req))
     reply.send(result)
