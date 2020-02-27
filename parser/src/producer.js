@@ -2,7 +2,6 @@ const config = require('config')
 const amqp = require('amqp-connection-manager')
 const EXCHANGE_NAME = 'news'
 
-console.log(config.amqp)
 const connection = amqp.connect([config.amqp])
 connection.on('connect', () => console.log('Ampq Connected!'))
 connection.on('disconnect', err => console.log('Ampq Disconnected.', err))

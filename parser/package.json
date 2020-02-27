@@ -27,6 +27,7 @@
     "mongoose": "^4.13.20",
     "string-to-stream": "^3.0.1",
     "uuid": "^7.0.1",
+    "yargs": "^15.1.0",
     "zlib": "^1.0.5"
   },
   "devDependencies": {
