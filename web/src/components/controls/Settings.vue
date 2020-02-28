@@ -72,7 +72,12 @@ export default {
       this.$store.dispatch('setFilters', [])
     },
     sendTestMessage () {
-      this.$socket.sendObj({ title: 'Hello there!', message: 'Live mode is working' })
+      this.$socket.sendObj({
+        _id: 'super.ba',
+        title: 'Hello there!',
+        description: 'Live mode is working',
+        source: { title: 'super.ba' }
+      })
     },
     togggleWs (checked) {
       if (this.$socket) {
@@ -81,16 +86,21 @@ export default {
 
       if (checked) {
         this.$connect(process.env.VUE_APP_WS_URL)
-        // this.subscribeToChannels()
+        this.subscribeToChannels()
       }
 
       this.$store.dispatch('setLiveMode', checked)
     },
     subscribeToChannels () {
+      if (this.$store.state.isConnected) {
+        this.$disconnect()
+      }
+
       const channels = this.$store.state.params.channels
       channels.forEach(channel => {
         const url = `${process.env.VUE_APP_WS_URL}/${channel}`
         this.$connect(url)
+        console.log(`Connecting ${url}`)
       })
     }
   }

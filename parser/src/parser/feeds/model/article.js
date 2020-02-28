@@ -4,7 +4,7 @@ const producer = require('../../../producer')
 class Article {
   constructor (title) {
     this.title = title
-    this.description = undefined
+    this.description = ''
     this.pubDate = undefined
     this.link = undefined
     this.image = undefined

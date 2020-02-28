@@ -59,7 +59,10 @@ async function amqpConnector (fastify, options, next) {
     connection.socket.on('message', message => {
       console.log('Incoming message', message)
 
-      broadcast(fastify, message)
+      const article = JSON.parse(message)
+      if (article.source.title === channel) {
+        broadcast(fastify, message)
+      }
     })
   })
 

@@ -23,9 +23,8 @@ async function sendMessage (article) {
     }
   })
 
-  console.log(`Sending ${article.source.title} - ${article.title}`)
+  // console.log(`Sending ${article.source.title} - ${article.title}`)
 
-  // const message = JSON.stringify(article)
   return channelWrapper.publish(EXCHANGE_NAME, QUEUE_NAME, article)
 }
 

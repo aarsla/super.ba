@@ -31,10 +31,11 @@ export default {
     this.$options.sockets.onmessage = (payload) => {
       try {
         const msg = JSON.parse(payload.data)
+
         this.$notification.success({
           message: msg.title,
-          description:
-            msg.message
+          description: `${msg.description || ''} - ${msg.source.title}`,
+          duration: 5
         })
         // const article = JSON.parse(payload.data)
 
