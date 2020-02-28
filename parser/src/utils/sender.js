@@ -1,4 +1,5 @@
 const chalk = require('chalk')
+const moment = require('moment')
 const Article = require('../parser/feeds/model/article')
 const db = require('../parser/db')
 const ArticleModel = require('../parser/feeds/model/mongooseArticle')
@@ -22,6 +23,7 @@ class Sender {
 
       const article = new Article('').fromModel(dbArticles.shift())
       await article.notify()
+      console.log(`${moment(article.pubDate).format('DD MMM YYYY hh:mm')}: ${article.source.title} - ${article.title}`)
 
       console.log(chalk.gray('--- sender complete ---'))
     } catch (error) {

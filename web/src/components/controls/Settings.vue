@@ -47,6 +47,7 @@
 
 <script>
 import Filters from './Filters.vue'
+const { v4: uuidv4 } = require('uuid')
 
 export default {
   name: 'Settings',
@@ -73,35 +74,23 @@ export default {
     },
     sendTestMessage () {
       this.$socket.sendObj({
-        _id: 'super.ba',
+        _id: uuidv4(),
         title: 'Hello there!',
         description: 'Live mode is working',
-        source: { title: 'super.ba' }
+        source: { title: 'super.ba', url: '#' }
       })
     },
     togggleWs (checked) {
       if (this.$socket) {
         this.$socket.close()
+        this.$disconnect()
       }
 
       if (checked) {
         this.$connect(process.env.VUE_APP_WS_URL)
-        this.subscribeToChannels()
       }
 
       this.$store.dispatch('setLiveMode', checked)
-    },
-    subscribeToChannels () {
-      if (this.$store.state.isConnected) {
-        this.$disconnect()
-      }
-
-      const channels = this.$store.state.params.channels
-      channels.forEach(channel => {
-        const url = `${process.env.VUE_APP_WS_URL}/${channel}`
-        this.$connect(url)
-        console.log(`Connecting ${url}`)
-      })
     }
   }
 }

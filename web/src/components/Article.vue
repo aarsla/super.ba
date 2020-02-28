@@ -73,6 +73,7 @@
           target="_blank"
         >
           <img
+            v-if="article.source.logo"
             class="logo"
             :alt="article.source.title"
             :src="article.source.logo"

@@ -2,6 +2,7 @@
 
 const fastifyPlugin = require('fastify-plugin')
 const amqp = require('amqp-connection-manager')
+const moment = require('moment')
 const sourcesService = require('../services/sources')
 const EXCHANGE_NAME = 'news'
 
@@ -27,7 +28,7 @@ async function amqpConnector (fastify, options, next) {
           channel.consume(QUEUE_NAME, function (data) {
             const stringMessage = data.content.toString()
             const message = JSON.parse(stringMessage)
-            console.log(`Subscriber: ${message.source.title} - ${message.title}`)
+            console.log(`Subscriber: ${moment(message.pubDate).format('DD MMM YYYY hh:mm')}: ${message.source.title} - ${message.title}`)
 
             broadcast(fastify, message)
             channel.ack(data)
@@ -46,6 +47,10 @@ async function amqpConnector (fastify, options, next) {
     try {
       fastify.websocketServer.clients.forEach(function each (client) {
         if (client.readyState === 1) {
+          if (data._id === 'super.ba') {
+            return
+          }
+
           const message = JSON.stringify(data)
           client.send(message)
         }

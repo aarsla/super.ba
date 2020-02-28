@@ -17,6 +17,7 @@
     "core-js": "^3.6.4",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
+    "uuid": "^7.0.1",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
     "vue-clipboard2": "^0.3.1",
