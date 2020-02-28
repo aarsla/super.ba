@@ -5,6 +5,10 @@
 			"path": "api"
 		},
 		{
+			"name": "deploy",
+			"path": "deploy"
+		},
+		{
 			"name": "docker",
 			"path": "docker"
 		},
