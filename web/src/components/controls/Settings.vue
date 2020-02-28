@@ -15,7 +15,7 @@
           :checked="isWsConnected"
           checked-children="ON"
           un-checked-children="OFF"
-          @change="togggleWs"
+          @change="toggleWs"
         />
       </a-col>
       <a-col :span="16">
@@ -41,6 +41,21 @@
     >
       Show all
     </a-button>
+    <a-divider orientation="left">
+      Status
+    </a-divider>
+    <a-alert
+      v-if="isWsConnected"
+      message="Connected"
+      type="success"
+      show-icon
+    />
+    <a-alert
+      v-else
+      message="Disconnected"
+      type="warning"
+      show-icon
+    />
     <a-divider :dashed="true" />
   </a-drawer>
 </template>
@@ -71,16 +86,17 @@ export default {
     },
     showAll () {
       this.$store.dispatch('setFilters', [])
+      this.$store.dispatch('setChannels', [])
     },
     sendTestMessage () {
       this.$socket.sendObj({
         _id: uuidv4(),
         title: 'Hello there!',
-        description: 'Live mode is working',
+        description: 'Live mode is working. New articles will show up here.',
         source: { title: 'super.ba', url: '#' }
       })
     },
-    togggleWs (checked) {
+    toggleWs (checked) {
       if (this.$socket) {
         this.$socket.close()
         this.$disconnect()

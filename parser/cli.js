@@ -39,7 +39,7 @@ yargs // eslint-disable-line
         alias: 's',
         type: 'string',
         describe: 'source title',
-        default: 'Klix',
+        default: null,
         demandOption: false
       })
   })

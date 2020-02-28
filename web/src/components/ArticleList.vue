@@ -38,8 +38,12 @@ export default {
         }
 
         this.$notification.success({
-          message: msg.title,
-          description: `${msg.description || ''} - ${msg.source.title}`,
+          message: h => {
+            return (<div><a href={msg.link} target="_blank">{msg.title}</a></div>)
+          },
+          description: h => {
+            return (<div>{msg.description || ''} - {msg.source.title}</div>)
+          },
           duration: 5
         })
 
