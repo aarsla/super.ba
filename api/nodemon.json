@@ -1,0 +1,11 @@
+{
+  "verbose": true,
+  "ext": "js,json",
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "args": [
+    "--inspect"
+  ]
+}

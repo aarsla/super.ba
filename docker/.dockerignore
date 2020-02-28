@@ -1,0 +1,7 @@
+.git
+.gitignore
+.circleci
+.idea
+api/node_modules
+web/node_modules
+docker*

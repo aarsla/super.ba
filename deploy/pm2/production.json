@@ -1,0 +1,30 @@
+{
+  "apps": [
+    {
+      "name": "super_parser",
+      "script": "index.js",
+      "args": "",
+      "instances": "1",
+      "watch": false,
+      "node_args": "",
+      "merge_logs": true,
+      "cwd": "/srv/super/current/parser",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "super_api",
+      "script": "index.js",
+      "args": "",
+      "instances": "1",
+      "watch": false,
+      "node_args": "",
+      "merge_logs": true,
+      "cwd": "/srv/super/current/api",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
