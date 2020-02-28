@@ -47,13 +47,6 @@
             :is-drawer-visible="isDrawerVisible"
             @hide-settings="hideSettings"
           />
-          <a-modal
-            title="Super.ba"
-            v-model="isAboutModalVisible"
-            @ok="hideAboutModal"
-          >
-            <p>Your friendly news aggregator.</p>
-          </a-modal>
         </a-col>
         <a-col :span="1">
           <a-button
@@ -101,10 +94,15 @@ export default {
   },
   methods: {
     showAboutModal () {
-      this.isAboutModalVisible = true
-    },
-    hideAboutModal (e) {
-      this.isAboutModalVisible = false
+      this.$success({
+        title: 'Super.ba',
+        // JSX support
+        content: (
+          <div>
+            <blockquote>Your friendly news aggregator</blockquote>
+          </div>
+        )
+      })
     },
     showSettings () {
       this.isDrawerVisible = true
@@ -120,11 +118,17 @@ export default {
 .logo {
   font-size: 1rem;
 }
+
 .right {
   float: right;
 }
 
 .ws-indicator {
   margin: 3px;
+}
+
+blockquote {
+  margin: 2.5em 10px 1.5em;
+  font-size: 1rem;
 }
 </style>
