@@ -4,7 +4,10 @@ const chalk = require('chalk')
 const mongoose = require('mongoose')
 const config = require('config')
 const uri = config.mongodb.uri
-const options = { useMongoClient: true }
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}
 
 mongoose.Promise = global.Promise
 
