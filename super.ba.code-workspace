@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"name": "api",
+			"path": "api"
+		},
+		{
+			"name": "deploy",
+			"path": "deploy"
+		},
+		{
+			"name": "docker",
+			"path": "docker"
+		},
+		{
+			"name": "parser",
+			"path": "parser"
+		},
+		{
+			"name": "web",
+			"path": "web"
+		},
+		{
+			"name": "super.ba",
+			"path": "."
+		}
+	],
+	"settings": {}
+}

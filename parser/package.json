@@ -1,0 +1,37 @@
+{
+  "name": "super.ba-parser",
+  "version": "1.0.0",
+  "description": "Super.ba feed parser",
+  "main": "index.js",
+  "author": "aarsla@gmail.com",
+  "license": "Unlicensed",
+  "private": true,
+  "scripts": {
+    "start": "nodemon",
+    "dev": "nodemon --inspect=0.0.0.0:9230",
+    "cli": "node src/parser/cli.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "amqp-connection-manager": "^3.2.0",
+    "amqplib": "^0.5.5",
+    "axios": "^0.19.2",
+    "chalk": "^3.0.0",
+    "config": "^3.2.6",
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "feedparser": "^2.2.9",
+    "iconv": "^2.3.5",
+    "lockfile": "^1.0.4",
+    "moment": "^2.24.0",
+    "mongoose": "^4.13.20",
+    "string-to-stream": "^3.0.1",
+    "uuid": "^7.0.1",
+    "yargs": "^15.1.0",
+    "zlib": "^1.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "standard": "^14.3.1"
+  }
+}

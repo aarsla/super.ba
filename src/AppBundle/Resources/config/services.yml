@@ -1,7 +1,0 @@
-services:
-
-    #ngs_home.locale_listener:
-    #    class: AppBundle\EventListener\AppSessionListener
-    #    arguments: ["%kernel.default_locale%"]
-    #    tags:
-    #        - { name: kernel.event_subscriber }
