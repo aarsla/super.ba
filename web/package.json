@@ -27,6 +27,7 @@
     "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
+    "@vue/cli": "^4.2.3",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-eslint": "~4.2.0",
     "@vue/cli-plugin-router": "~4.2.0",
