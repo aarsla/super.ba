@@ -82,7 +82,8 @@ export default new Vuex.Store({
       state.isLoading = status
     },
     SET_SOURCES (state, sources) {
-      state.sources = sources
+      const sourcesSortedByTitle = sources.sort((a, b) => a.title.localeCompare(b.title))
+      state.sources = sourcesSortedByTitle
     },
     SET_LIVE_MODE (state, liveMode) {
       state.liveMode = liveMode

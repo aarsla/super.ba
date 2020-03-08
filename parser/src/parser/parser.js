@@ -11,6 +11,7 @@ const info24Parser = require('./feeds/info24')
 const klixParser = require('./feeds/klix')
 const n1infoParser = require('./feeds/n1info')
 const radioSarajevoParser = require('./feeds/radiosarajevo')
+const voaParser = require('./feeds/voa')
 
 class Parser {
   constructor () {
@@ -41,6 +42,7 @@ class Parser {
     const klix = klixParser.process()
     const n1info = n1infoParser.process()
     const radioSarajevo = radioSarajevoParser.process()
+    const voa = voaParser.process()
 
     const parserPromises = [
       avaz,
@@ -49,7 +51,8 @@ class Parser {
       info24,
       klix,
       n1info,
-      radioSarajevo
+      radioSarajevo,
+      voa
     ]
 
     await Promise.all(parserPromises)

@@ -58,7 +58,7 @@
       </a-col>
       <a-col :span="16">
         <div v-if="article.description">
-          {{ article.description }}
+          {{ formattedDescription }}
         </div>
         <div v-else>
           ...
@@ -93,6 +93,8 @@
 <script>
 import moment from 'moment'
 
+const descriptionLength = 650
+
 export default {
   name: 'Article',
   created () {
@@ -119,6 +121,9 @@ export default {
     },
     pubDate: function () {
       return moment(this.article.pubDate).format('DD MMM YYYY HH:mm')
+    },
+    formattedDescription: function () {
+      return this.article.description.length > descriptionLength ? this.article.description.substring(0, descriptionLength) + '...' : this.article.description
     }
   },
   methods: {

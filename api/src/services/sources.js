@@ -37,6 +37,11 @@ exports.getSources = async (req, reply) => {
         title: 'Radio Sarajevo',
         url: 'http://radiosarajevo.ba',
         logo: 'http://www.radiosarajevo.ba//build/img/logo-s.png'
+      }, {
+        _id: 8,
+        title: 'Glas Amerike',
+        url: 'https://ba.voanews.com',
+        logo: 'https://ba.voanews.com/Content/responsive/VOA/bs-Latn-BA/img/logo.png'
       }
     ]
   }

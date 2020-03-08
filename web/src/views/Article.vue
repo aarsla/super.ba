@@ -64,7 +64,7 @@ export default {
 <style scoped>
 .layout {
   margin: 0 auto;
-  max-width: 768px;
+  max-width: 900px;
   background: rgba(255, 255, 255, 1.0);
 }
 
