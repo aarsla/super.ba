@@ -6,6 +6,8 @@ module.exports = shipit => {
   require('shipit-pm2')(shipit)
   require('shipit-slack')(shipit)
 
+  shipit.config.copy = false
+
   shipit.initConfig({
     default: {
       repositoryUrl: process.env.GIT_REPO,
@@ -18,7 +20,7 @@ module.exports = shipit => {
     },
     production: {
       deployTo: '/srv/super',
-      servers: `${process.env.USER}@${process.env.SERVER}`,
+      servers: `${process.env.SSH_USER}@${process.env.SERVER}`,
       branch: 'master',
       pm2: {
         json: '/srv/super/current/deploy/pm2/production.json'

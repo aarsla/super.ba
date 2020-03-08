@@ -3,7 +3,6 @@ const publicRoutes = require('./routes/public')
 const privateRoutes = require('./routes/private')
 const wsPingRoute = require('./routes/ws')
 const swagger = require('./config/swagger')
-// require('./src/subscriber')
 
 function fastifyServer () {
   const fastify = require('fastify')({ logger: config.server.logger })
@@ -16,7 +15,6 @@ function fastifyServer () {
   fastify.register(require('fastify-websocket'))
   fastify.register(wsPingRoute)
 
-  // fastify.register(require('fastify-websocket'))
   fastify.register(require('fastify-swagger'), swagger.options)
   fastify.register(require('fastify-jwt'), { secret: config.jwt.secret })
 
