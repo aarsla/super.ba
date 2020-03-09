@@ -6,7 +6,7 @@ module.exports = {
         totalDocs: 'totalResults',
         meta: 'meta'
       },
-      defaultSort: { createdAt: -1 },
+      defaultSort: { pubDate: -1 },
       defaultPage: 1,
       searchLimit: 20,
       meta: {
