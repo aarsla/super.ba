@@ -4,7 +4,7 @@ const Article = require('./model/article')
 
 const feed = 'https://ba.voanews.com/api/zipvtejjvt'
 const source = {
-  title: 'VOA',
+  title: 'Glas Amerike',
   url: 'https://ba.voanews.com/',
   logo: 'https://ba.voanews.com/Content/responsive/VOA/bs-Latn-BA/img/logo.png'
 }
