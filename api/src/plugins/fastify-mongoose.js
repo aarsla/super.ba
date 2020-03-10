@@ -14,6 +14,7 @@ async function mongooseConnector (fastify, options, next) {
   }
 
   mongoose.Promise = global.Promise
+  // mongoose.set('debug', true)
 
   await mongoose.connect(uri, mongodbOptions)
 
