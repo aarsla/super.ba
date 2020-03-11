@@ -9,7 +9,7 @@
     <a-divider orientation="left">
       News sources
     </a-divider>
-    <a-dropdown>
+    <a-dropdown class="center">
       <a-menu
         slot="overlay"
         @click="changeCategory"
@@ -21,7 +21,7 @@
           Technology
         </a-menu-item>
       </a-menu>
-      <a-button> Change news sources <a-icon type="down" /> </a-button>
+      <a-button> Change category <a-icon type="down" /> </a-button>
     </a-dropdown>
     <a-divider orientation="left">
       Hide news from
@@ -100,6 +100,7 @@ export default {
     },
     changeCategory (e) {
       this.$store.dispatch('setCategory', e)
+      this.showAll()
     },
     showAll () {
       this.$store.dispatch('setFilters', [])
