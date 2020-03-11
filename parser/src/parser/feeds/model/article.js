@@ -1,9 +1,11 @@
 const ArticleModel = require('./mongooseArticle')
 const producer = require('../../../producer')
+const striptags = require('striptags')
+const ent = require('ent')
 
 class Article {
   constructor (title) {
-    this.title = title
+    this.title = striptags(ent.decode(title))
     this.description = ''
     this.pubDate = undefined
     this.link = undefined
@@ -13,8 +15,8 @@ class Article {
   }
 
   fromModel (model) {
-    this.title = model.title
-    this.description = model.description
+    this.title = striptags(ent.decode(model.title))
+    this.description = striptags(ent.decode(model.description))
     this.pubDate = model.pubDate
     this.link = model.link
     this.image = model.image
@@ -33,7 +35,7 @@ class Article {
   }
 
   setDescription (value) {
-    this.description = value
+    this.description = striptags(ent.decode(value))
     return this
   }
 

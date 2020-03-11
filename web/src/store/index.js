@@ -40,6 +40,9 @@ export default new Vuex.Store({
     joinedFilters: state => {
       return state.params.filters.join()
     },
+    sourcesUrl: (state, getters) => {
+      return `sources/${state.params.category}`
+    },
     articleUrl: (state, getters) => {
       return `articles/${state.articleId}`
     },
@@ -68,6 +71,9 @@ export default new Vuex.Store({
     },
     SET_PARAMS_DATE (state, date) {
       state.params.date = date
+    },
+    SET_PARAMS_CATEGORY (state, category) {
+      state.params.category = category
     },
     SET_PARAMS_FILTERS (state, filters) {
       state.params.filters = filters
@@ -134,6 +140,10 @@ export default new Vuex.Store({
       commit('SET_PARAMS_DATE', date)
       dispatch('fetchArticles')
     },
+    setCategory ({ commit, dispatch }, category) {
+      commit('SET_PARAMS_CATEGORY', category.key)
+      dispatch('fetchSources')
+    },
     setQuery ({ commit, dispatch }, query) {
       commit('SET_PARAMS_QUERY', query)
       dispatch('fetchArticles')
@@ -162,7 +172,7 @@ export default new Vuex.Store({
       context.commit('SET_LOADING_STATUS', true)
 
       try {
-        const result = await Vue.axios.get('sources')
+        const result = await Vue.axios.get(this.getters.sourcesUrl)
         context.commit('SET_SOURCES', result.data.results)
       } catch (error) {
         throw new Error(`API ${error}`)

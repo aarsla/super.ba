@@ -1,17 +1,18 @@
 const chalk = require('chalk')
-const baseParser = require('./baseParser')
-const Article = require('./model/article')
+const baseParser = require('../baseParser')
+const Article = require('../model/article')
 
-const feed = 'https://www.radiosarajevo.ba/rss'
+const feed = 'http://balkans.aljazeera.net/mobile/articles'
 const source = {
-  title: 'Radio Sarajevo',
-  url: 'http://radiosarajevo.ba',
-  logo: 'http://www.radiosarajevo.ba//build/img/logo-s.png'
+  title: 'Al Jazeera Balkans',
+  url: 'http://balkans.aljazeera.net/',
+  logo: 'http://balkans.aljazeera.net/sites/default/themes/custom/ajbalkans/logo.png'
 }
 
 const imageRegex = /<img[^>]+src="?([^"\s]+)"?[^>]*\/>/
+const pRegex = /(?!>)([^><]+)(?=<\/p>)/
 
-class RadioSarajevo {
+class AlJazeera {
   constructor () {
     this.items = []
   }
@@ -24,8 +25,11 @@ class RadioSarajevo {
         const regexResults = imageRegex.exec(item.summary)
         const image = regexResults ? regexResults[1] : null
 
-        const article = new Article(item.title)
-          .setDescription(item.description)
+        const pResults = pRegex.exec(item.summary)
+        const pContent = pResults ? pResults[0] : null
+
+        const article = await new Article(item.title)
+          .setDescription(pContent || null)
           .setPubDate(item.pubDate)
           .setLink(item.link)
           .setImage(image || '')
@@ -42,4 +46,4 @@ class RadioSarajevo {
   }
 }
 
-module.exports = new RadioSarajevo()
+module.exports = new AlJazeera()

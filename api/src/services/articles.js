@@ -41,12 +41,3 @@ exports.getArticle = async (req, reply) => {
     throw boom.boomify(err)
   }
 }
-
-exports.addArticle = async (req, reply) => {
-  try {
-    const article = new Article(req.body)
-    return article.save()
-  } catch (err) {
-    throw boom.boomify(err)
-  }
-}

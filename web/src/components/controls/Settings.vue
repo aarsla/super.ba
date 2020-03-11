@@ -7,6 +7,34 @@
     :visible="isDrawerVisible"
   >
     <a-divider orientation="left">
+      News sources
+    </a-divider>
+    <a-dropdown>
+      <a-menu
+        slot="overlay"
+        @click="changeCategory"
+      >
+        <a-menu-item key="BiH">
+          Bosnia & Herzegovina
+        </a-menu-item>
+        <a-menu-item key="Tech">
+          Technology
+        </a-menu-item>
+      </a-menu>
+      <a-button> Change news sources <a-icon type="down" /> </a-button>
+    </a-dropdown>
+    <a-divider orientation="left">
+      Hide news from
+    </a-divider>
+    <Filters />
+    <a-button
+      type="primary"
+      class="center spaced"
+      @click="showAll"
+    >
+      Show All
+    </a-button>
+    <a-divider orientation="left">
       Live mode
     </a-divider>
     <a-row>
@@ -28,22 +56,9 @@
       :disabled="! isWsConnected"
       @click="sendTestMessage"
     >
-      Test live mode
+      Test Live Mode
     </a-button>
-    <a-divider orientation="left">
-      Hide news from
-    </a-divider>
-    <Filters />
-    <a-button
-      type="primary"
-      class="center spaced"
-      @click="showAll"
-    >
-      Show all
-    </a-button>
-    <a-divider orientation="left">
-      Status
-    </a-divider>
+    <a-divider :dashed="true" />
     <a-alert
       v-if="isWsConnected"
       message="Connected"
@@ -56,7 +71,6 @@
       type="warning"
       show-icon
     />
-    <a-divider :dashed="true" />
   </a-drawer>
 </template>
 
@@ -83,6 +97,9 @@ export default {
   methods: {
     hideSettings () {
       this.$emit('hide-settings')
+    },
+    changeCategory (e) {
+      this.$store.dispatch('setCategory', e)
     },
     showAll () {
       this.$store.dispatch('setFilters', [])

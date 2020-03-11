@@ -4,7 +4,7 @@ const documentation = require('../documentation/sources')
 const routes = [
   {
     method: 'GET',
-    url: '/api/sources',
+    url: '/api/sources/:source',
     handler: sourcesService.getSources,
     schema: documentation.getSourcesSchema
 

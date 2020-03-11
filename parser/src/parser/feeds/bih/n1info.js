@@ -1,6 +1,6 @@
 const chalk = require('chalk')
-const baseParser = require('./baseParser')
-const Article = require('./model/article')
+const baseParser = require('../baseParser')
+const Article = require('../model/article')
 
 const feed = 'https://ba.n1info.com/rss/249/Naslovna'
 const source = {

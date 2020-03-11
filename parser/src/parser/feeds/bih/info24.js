@@ -1,15 +1,17 @@
 const chalk = require('chalk')
-const baseParser = require('./baseParser')
-const Article = require('./model/article')
+const baseParser = require('../baseParser')
+const Article = require('../model/article')
 
-const feed = 'https://www.klix.ba/rss/svevijesti'
+const feed = 'https://24sata.info/feed/'
 const source = {
-  title: 'Klix',
-  url: 'https://klix.ba/',
-  logo: 'https://www.klix.ba/images/logo.png'
+  title: '24sata info',
+  url: 'https://24sata.info/',
+  logo: 'https://24sata.info/wp-content/uploads/2019/12/logo24_web-2.jpg'
 }
 
-class Klix {
+// const htmlTagRegex = /(<([^>]+)>)/ig
+
+class Info24 {
   constructor () {
     this.items = []
   }
@@ -20,10 +22,10 @@ class Klix {
 
       for (const item of this.items) {
         const article = await new Article(item.title)
-          .setDescription(item.description)
+          .setDescription(item['rss:description']['#'])
           .setPubDate(item.pubDate)
           .setLink(item.link)
-          .setImage(item.enclosures ? item.enclosures[0].url : '')
+          .setImage(null)
           .setCategory({ title: 'BiH' })
           .setSource(source)
 
@@ -37,4 +39,4 @@ class Klix {
   }
 }
 
-module.exports = new Klix()
+module.exports = new Info24()

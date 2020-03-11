@@ -4,14 +4,17 @@ const moment = require('moment')
 const fs = require('fs')
 const lockFile = require('lockfile')
 
-const aljazeeraParser = require('./feeds/aljazeera')
-const avazParser = require('./feeds/avaz')
-const cinParser = require('./feeds/cin')
-const info24Parser = require('./feeds/info24')
-const klixParser = require('./feeds/klix')
-const n1infoParser = require('./feeds/n1info')
-const radioSarajevoParser = require('./feeds/radiosarajevo')
-const voaParser = require('./feeds/voa')
+const aljazeeraParser = require('./feeds/bih/aljazeera')
+const avazParser = require('./feeds/bih/avaz')
+const cinParser = require('./feeds/bih/cin')
+const info24Parser = require('./feeds/bih/info24')
+const klixParser = require('./feeds/bih/klix')
+const n1infoParser = require('./feeds/bih/n1info')
+const radioSarajevoParser = require('./feeds/bih/radiosarajevo')
+const voaParser = require('./feeds/bih/voa')
+
+const cnetParser = require('./feeds/tech/cnet')
+const enadgetParser = require('./feeds/tech/engadget')
 
 class Parser {
   constructor () {
@@ -44,15 +47,20 @@ class Parser {
     const radioSarajevo = radioSarajevoParser.process()
     const voa = voaParser.process()
 
+    const cnet = cnetParser.process()
+    const enadget = enadgetParser.process()
+
     const parserPromises = [
-      avaz,
-      cin,
-      aljazeera,
-      info24,
-      klix,
-      n1info,
-      radioSarajevo,
-      voa
+      // avaz,
+      // cin,
+      // aljazeera,
+      // info24,
+      // klix,
+      // n1info,
+      // radioSarajevo,
+      // voa,
+      cnet,
+      enadget
     ]
 
     await Promise.all(parserPromises)
