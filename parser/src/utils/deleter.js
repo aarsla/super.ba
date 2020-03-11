@@ -5,9 +5,6 @@ const ArticleModel = require('../parser/feeds/model/mongooseArticle')
 
 class Deleter {
   async run (amount, interval) {
-    console.log(amount)
-    console.log(interval)
-
     const date = moment().subtract(amount, interval)
 
     try {

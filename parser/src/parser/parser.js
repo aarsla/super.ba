@@ -15,6 +15,12 @@ const voaParser = require('./feeds/bih/voa')
 
 const cnetParser = require('./feeds/tech/cnet')
 const enadgetParser = require('./feeds/tech/engadget')
+const mashableParser = require('./feeds/tech/mashable')
+const techCrunchParser = require('./feeds/tech/techCrunch')
+const techRadarParser = require('./feeds/tech/techRadar')
+const theNextWebParser = require('./feeds/tech/theNextWeb')
+const theVergeParser = require('./feeds/tech/theVerge')
+const wiredParser = require('./feeds/tech/wired')
 
 class Parser {
   constructor () {
@@ -35,9 +41,6 @@ class Parser {
   }
 
   async processFeeds () {
-    const start = moment().format('YYYY-MM-DD HH:mm:ss')
-    console.log(chalk.green(`${start} : parser processing feeds`))
-
     const avaz = avazParser.process()
     const cin = cinParser.process()
     const aljazeera = aljazeeraParser.process()
@@ -47,21 +50,43 @@ class Parser {
     const radioSarajevo = radioSarajevoParser.process()
     const voa = voaParser.process()
 
+    const bihPromises = [
+      avaz,
+      cin,
+      aljazeera,
+      info24,
+      klix,
+      n1info,
+      radioSarajevo,
+      voa
+    ]
+
     const cnet = cnetParser.process()
     const enadget = enadgetParser.process()
+    const mashable = mashableParser.process()
+    const techCrunch = techCrunchParser.process()
+    const techRadar = techRadarParser.process()
+    const theNextWeb = theNextWebParser.process()
+    const theVerge = theVergeParser.process()
+    const wired = wiredParser.process()
 
-    const parserPromises = [
-      // avaz,
-      // cin,
-      // aljazeera,
-      // info24,
-      // klix,
-      // n1info,
-      // radioSarajevo,
-      // voa,
+    const techPromises = [
       cnet,
-      enadget
+      enadget,
+      mashable,
+      techCrunch,
+      techRadar,
+      theNextWeb,
+      theVerge,
+      wired
     ]
+
+    await this.processCategory([...bihPromises, ...techPromises])
+  }
+
+  async processCategory (parserPromises) {
+    const start = moment().format('YYYY-MM-DD HH:mm:ss')
+    console.log(chalk.green(`${start} : parser processing feeds`))
 
     await Promise.all(parserPromises)
 
