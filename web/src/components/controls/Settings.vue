@@ -50,6 +50,20 @@
         Enable to update news feed in real time
       </a-col>
     </a-row>
+    <a-row>
+      <a-col :span="8">
+        <a-switch
+          :checked="isDesktopNotificationEnabled"
+          :disabled="!isWsConnected"
+          checked-children="ON"
+          un-checked-children="OFF"
+          @change="toggleDesktopNotifications"
+        />
+      </a-col>
+      <a-col :span="16">
+        Enable desktop notifications
+      </a-col>
+    </a-row>
     <a-button
       type="primary"
       class="center spaced"
@@ -76,6 +90,7 @@
 
 <script>
 import Filters from './Filters.vue'
+import moment from 'moment'
 const { v4: uuidv4 } = require('uuid')
 
 export default {
@@ -92,6 +107,9 @@ export default {
   computed: {
     isWsConnected: function () {
       return this.$store.state.socket.isConnected
+    },
+    isDesktopNotificationEnabled: function () {
+      return this.$store.state.desktopNotifications
     }
   },
   methods: {
@@ -100,18 +118,19 @@ export default {
     },
     changeCategory (e) {
       this.$store.dispatch('setCategory', e)
-      this.showAll()
     },
     showAll () {
-      this.$store.dispatch('setFilters', [])
       this.$store.dispatch('setChannels', [])
+      this.$store.dispatch('setFilters', [])
     },
     sendTestMessage () {
       this.$socket.sendObj({
         _id: uuidv4(),
         title: 'Hello there!',
+        link: 'https://super.ba',
+        pubDate: moment(),
         description: 'Live mode is working. New articles will show up here.',
-        source: { title: 'super.ba', url: '#' }
+        source: { title: 'super.ba', url: '#', logo: '/apple-touch-icon.png' }
       })
     },
     toggleWs (checked) {
@@ -125,6 +144,16 @@ export default {
       }
 
       this.$store.dispatch('setLiveMode', checked)
+    },
+    async toggleDesktopNotifications (checked) {
+      const permission = await Notification.requestPermission()
+      if (permission === 'granted') {
+        this.$store.dispatch('setDesktopNotifications', true)
+      }
+
+      if (checked === false) {
+        this.$store.dispatch('setDesktopNotifications', false)
+      }
     }
   }
 }

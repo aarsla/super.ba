@@ -6,11 +6,9 @@ const ArticleModel = require('../parser/feeds/model/mongooseArticle')
 const { disconnect } = require('../producer')
 
 class Sender {
-  async run (source) {
+  async run (source, number) {
     try {
-      const match = {
-        'category.title': 'BiH'
-      }
+      const match = {}
 
       if (source) {
         match['source.title'] = source
@@ -18,12 +16,14 @@ class Sender {
 
       const dbArticles = await ArticleModel.aggregate([
         { $match: match },
-        { $sample: { size: 1 } }
+        { $sample: { size: number >= 1 ? number : 1 } }
       ])
 
-      const article = new Article('').fromModel(dbArticles.shift())
-      await article.notify()
-      console.log(`${moment(article.pubDate).format('DD MMM YYYY hh:mm')}: ${article.source.title} - ${article.title}`)
+      for (const dbArticle of dbArticles) {
+        const article = new Article('').fromModel(dbArticle)
+        await article.notify()
+        console.log(`${moment(article.pubDate).format('DD MMM YYYY hh:mm')}: ${article.source.title} - ${article.title}`)
+      }
 
       console.log(chalk.gray('--- sender complete ---'))
     } catch (error) {

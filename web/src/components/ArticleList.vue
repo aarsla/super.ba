@@ -26,39 +26,6 @@ export default {
   },
   components: {
     Article
-  },
-  created () {
-    this.$options.sockets.onmessage = (payload) => {
-      try {
-        const msg = JSON.parse(payload.data)
-        const showMessage = (this.$store.state.params.channels.includes(msg.source.title) || msg.source.title === 'super.ba')
-
-        if (!showMessage) {
-          return
-        }
-
-        this.$notification.success({
-          message: h => {
-            return (<div><a href={msg.link} target="_blank">{msg.title}</a></div>)
-          },
-          description: h => {
-            return (<div>{msg.description || ''} - {msg.source.title}</div>)
-          },
-          duration: 5
-        })
-
-        // const article = JSON.parse(payload.data)
-
-        // this.articles.unshift(article)
-        // this.articles.pop()
-      } catch (error) {
-        this.$notification.error({
-          message: error.name,
-          description:
-            error.message
-        })
-      }
-    }
   }
 }
 </script>

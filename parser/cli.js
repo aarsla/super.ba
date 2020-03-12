@@ -27,12 +27,12 @@ yargs // eslint-disable-line
       })
   })
   .command({
-    command: 'sender [source]',
+    command: 'sender [source] [number]',
     aliases: ['s'],
     desc: 'Send amqp message',
     handler: async (argv) => {
       const Sender = require('./src/utils/sender')
-      await Sender.run(argv.source)
+      await Sender.run(argv.source, argv.number)
     },
     builder: (yargs) => yargs
       .positional('source', {
@@ -40,6 +40,13 @@ yargs // eslint-disable-line
         type: 'string',
         describe: 'source title',
         default: null,
+        demandOption: false
+      })
+      .positional('number', {
+        alias: 'n',
+        type: 'number',
+        describe: 'number of messages',
+        default: 1,
         demandOption: false
       })
   })

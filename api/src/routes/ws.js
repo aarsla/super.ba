@@ -1,7 +1,7 @@
 module.exports = async (fastify, opts, done) => {
   fastify.get('/ws', { websocket: true }, (connection, req) => {
     connection.socket.on('message', message => {
-      console.log('Incoming message', message)
+      console.log('Incoming ping message', message)
 
       send(connection.socket, message)
     })

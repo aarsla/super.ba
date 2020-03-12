@@ -40,7 +40,7 @@ export default {
   methods: {
     onChange (checkedList) {
       this.$store.dispatch('setFilters', checkedList)
-      this.$store.dispatch('setChannels', checkedList)
+      this.$store.dispatch('setChannels')
     },
     ...mapActions([
       'setFilters'

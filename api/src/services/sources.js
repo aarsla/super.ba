@@ -7,7 +7,12 @@ exports.getSources = async (req, reply) => {
     const source = req && req.params ? req.params.source : null
 
     if (!source) {
-      return bihSources
+      return {
+        results: [
+          ...bihSources.results,
+          ...techSources.results
+        ]
+      }
     }
 
     switch (source) {

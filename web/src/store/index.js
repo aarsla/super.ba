@@ -16,6 +16,7 @@ export default new Vuex.Store({
     articleId: String,
     articles: [],
     liveMode: Boolean,
+    desktopNotifications: false,
     notifications: Boolean,
     params: {
       query: '',
@@ -94,6 +95,9 @@ export default new Vuex.Store({
     SET_LIVE_MODE (state, liveMode) {
       state.liveMode = liveMode
     },
+    SET_DESKTOP_NOTIFICATIONS (state, allow) {
+      state.desktopNotifications = allow
+    },
     SET_NOTIFICATIONS (state, notifications) {
       state.notifications = notifications
     },
@@ -143,6 +147,7 @@ export default new Vuex.Store({
     setCategory ({ commit, dispatch }, category) {
       commit('SET_PARAMS_CATEGORY', category.key)
       dispatch('fetchSources')
+      dispatch('setFilters', [])
     },
     setQuery ({ commit, dispatch }, query) {
       commit('SET_PARAMS_QUERY', query)
@@ -150,14 +155,15 @@ export default new Vuex.Store({
     },
     setFilters ({ commit, dispatch }, filters) {
       commit('SET_PARAMS_FILTERS', filters)
-      dispatch('fetchArticles')
+      dispatch('setChannels')
     },
-    setChannels ({ commit, dispatch }, channels) {
+    setChannels ({ commit, dispatch }) {
       const sources = this.state.sources.map((o) => o.title)
       const filters = this.state.params.filters
       const inversedChannels = sources.filter((o) => !filters.includes(o))
 
       commit('SET_PARAMS_CHANNELS', inversedChannels)
+      dispatch('fetchArticles')
     },
     setArticle ({ commit, dispatch }, articleId) {
       commit('SET_ARTICLE_ID', articleId)
@@ -165,19 +171,23 @@ export default new Vuex.Store({
     setLiveMode ({ commit }, liveMode) {
       commit('SET_LIVE_MODE', liveMode)
     },
+    setDesktopNotifications ({ commit }, allow) {
+      commit('SET_DESKTOP_NOTIFICATIONS', allow)
+    },
     setNotifications ({ commit }, notifications) {
       commit('SET_NOTIFICATIONS', notifications)
     },
-    async fetchSources (context) {
-      context.commit('SET_LOADING_STATUS', true)
+    async fetchSources ({ commit, dispatch }) {
+      commit('SET_LOADING_STATUS', true)
 
       try {
         const result = await Vue.axios.get(this.getters.sourcesUrl)
-        context.commit('SET_SOURCES', result.data.results)
+        commit('SET_SOURCES', result.data.results)
+        dispatch('setChannels')
       } catch (error) {
         throw new Error(`API ${error}`)
       } finally {
-        context.commit('SET_LOADING_STATUS', false)
+        commit('SET_LOADING_STATUS', false)
       }
     },
     async fetchArticle (context, articleId) {
@@ -204,9 +214,6 @@ export default new Vuex.Store({
       } finally {
         context.commit('SET_LOADING_STATUS', false)
       }
-    },
-    sendMessage (context, message) {
-      Vue.prototype.$socket.send(message)
     }
   },
   modules: {},
@@ -217,6 +224,7 @@ export default new Vuex.Store({
         {
           token: state.currentJWT,
           liveMode: state.liveMode,
+          desktopNotifications: state.desktopNotifications,
           notifications: state.notifications,
           params: state.params
         })

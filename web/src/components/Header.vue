@@ -96,7 +96,6 @@ export default {
     showAboutModal () {
       this.$success({
         title: 'Super.ba',
-        // JSX support
         content: (
           <div>
             <blockquote>Your friendly news aggregator</blockquote>
