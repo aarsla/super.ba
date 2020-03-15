@@ -163,7 +163,9 @@ export default new Vuex.Store({
       const inversedChannels = sources.filter((o) => !filters.includes(o))
 
       commit('SET_PARAMS_CHANNELS', inversedChannels)
-      dispatch('fetchArticles')
+      if (!this.state.articleId) {
+        dispatch('fetchArticles')
+      }
     },
     setArticle ({ commit, dispatch }, articleId) {
       commit('SET_ARTICLE_ID', articleId)
