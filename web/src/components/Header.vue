@@ -25,19 +25,20 @@
         justify="space-around"
         align="middle"
       >
-        <a-col :span="1" />
         <a-col :span="10">
           <Search />
         </a-col>
-        <a-col :span="6">
+        <a-col :span="4">
           <Date />
         </a-col>
-        <a-col :span="3">
+        <a-col :span="2">
           <Limit />
+        </a-col>
+        <a-col :span="4">
+          <Category />
         </a-col>
         <a-col :span="1">
           <a-button
-            class="right"
             type="secondary"
             shape="circle"
             icon="setting"
@@ -50,7 +51,6 @@
         </a-col>
         <a-col :span="1">
           <a-button
-            class="right"
             type="secondary"
             shape="circle"
             icon="question"
@@ -67,6 +67,7 @@ import Settings from './controls/Settings.vue'
 import Search from './controls/Search.vue'
 import Limit from './controls/Limit.vue'
 import Date from './controls/Date.vue'
+import Category from './controls/Category.vue'
 
 export default {
   name: 'Header',
@@ -74,7 +75,8 @@ export default {
     Settings,
     Search,
     Limit,
-    Date
+    Date,
+    Category
   },
   data () {
     return {
@@ -116,10 +118,6 @@ export default {
 <style scoped>
 .logo {
   font-size: 1rem;
-}
-
-.right {
-  float: right;
 }
 
 .ws-indicator {

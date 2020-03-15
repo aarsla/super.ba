@@ -7,23 +7,6 @@
     :visible="isDrawerVisible"
   >
     <a-divider orientation="left">
-      News sources
-    </a-divider>
-    <a-dropdown class="center">
-      <a-menu
-        slot="overlay"
-        @click="changeCategory"
-      >
-        <a-menu-item key="BiH">
-          Bosnia & Herzegovina
-        </a-menu-item>
-        <a-menu-item key="Tech">
-          Technology
-        </a-menu-item>
-      </a-menu>
-      <a-button> Change category <a-icon type="down" /> </a-button>
-    </a-dropdown>
-    <a-divider orientation="left">
       Hide news from
     </a-divider>
     <Filters />
@@ -115,9 +98,6 @@ export default {
   methods: {
     hideSettings () {
       this.$emit('hide-settings')
-    },
-    changeCategory (e) {
-      this.$store.dispatch('setCategory', e)
     },
     showAll () {
       this.$store.dispatch('setChannels', [])
