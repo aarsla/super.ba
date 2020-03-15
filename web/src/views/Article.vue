@@ -15,29 +15,14 @@
         </a-col>
       </a-row>
     </a-layout-content>
-    <a-layout-footer>
-      <a-row
-        type="flex"
-        justify="space-around"
-        align="middle"
-      >
-        <a-col :span="1">
-          <a-icon
-            type="scissor"
-          />
-        </a-col>
-        <a-col :span="23">
-          <a-divider :dashed="true" />
-        </a-col>
-      </a-row>
-      © super.ba - Live news feed aggregator
-    </a-layout-footer>
+    <Footer />
     <a-back-top />
   </a-layout>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
 import Sources from '@/components/controls/Sources.vue'
 import ArticleList from '@/components/ArticleList.vue'
 import { mapState } from 'vuex'
@@ -46,6 +31,7 @@ export default {
   name: 'SuperBaApp',
   components: {
     Header,
+    Footer,
     Sources,
     ArticleList
   },
