@@ -53,6 +53,6 @@ exports.getArticleSchema = {
   tags: ['articles'],
   summary: 'Retrieves news article',
   response: {
-    200: articleSchema
+    200: pagedResponseSchema
   }
 }

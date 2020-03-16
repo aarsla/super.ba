@@ -1,9 +1,8 @@
 <template>
   <a-layout class="layout">
     <a-layout-header>
-      <Header />
+      <Logo />
     </a-layout-header>
-    <Sources :sources="sources" />
     <a-layout-content>
       <a-row
         type="flex"
@@ -21,26 +20,22 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
+import Logo from '@/components/Logo.vue'
 import Footer from '@/components/Footer.vue'
-import Sources from '@/components/controls/Sources.vue'
 import ArticleList from '@/components/ArticleList.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'SuperBaApp',
   components: {
-    Header,
+    Logo,
     Footer,
-    Sources,
     ArticleList
   },
-  created () {
-    this.$store.dispatch('fetchSources')
-    this.$store.dispatch('fetchArticle', this.$route.params.id)
+  mounted () {
+    this.$store.dispatch('fetchArticles', this.$route.params.id)
   },
   computed: mapState([
-    'header',
     'articles',
     'sources'
   ])
@@ -56,7 +51,7 @@ export default {
 
 .layout .ant-layout-header {
   padding: 0 10px 0 10px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   text-align: left;
   background: rgba(255, 255, 255, 1.0);
 }

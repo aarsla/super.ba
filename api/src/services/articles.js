@@ -25,8 +25,8 @@ exports.getArticles = async (req, reply) => {
       .sort(sort || '-pubDate')
       .select(projection)
 
-    const result = await Article.paginate(query, paginatorOptions(req))
-    reply.send(result)
+    const results = await Article.paginate(query, paginatorOptions(req))
+    reply.send(results)
   } catch (err) {
     throw boom.boomify(err)
   }
@@ -35,8 +35,9 @@ exports.getArticles = async (req, reply) => {
 exports.getArticle = async (req, reply) => {
   try {
     const id = req.params.id
-    const result = await Article.findById(id)
-    reply.send(result)
+    const query = Article.findById(id)
+    const results = await Article.paginate(query, paginatorOptions(req))
+    reply.send(results)
   } catch (err) {
     throw boom.boomify(err)
   }

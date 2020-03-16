@@ -13,7 +13,7 @@ export default new Vuex.Store({
     currentJWT: null,
     isLoading: false,
     sources: [],
-    articleId: String,
+    articleId: null,
     articles: [],
     liveMode: Boolean,
     desktopNotifications: false,
@@ -44,10 +44,11 @@ export default new Vuex.Store({
     sourcesUrl: (state, getters) => {
       return `sources/${state.params.category}`
     },
-    articleUrl: (state, getters) => {
-      return `articles/${state.articleId}`
-    },
     articlesUrl: (state, getters) => {
+      if (state.articleId) {
+        return `articles/${state.articleId}`
+      }
+
       const params = state.params
       let url = `articles?category.title=${params.category}&source.title!=${getters.joinedFilters}&skip=${params.offset}&limit=${params.limit}`
 
@@ -145,8 +146,8 @@ export default new Vuex.Store({
       dispatch('fetchArticles')
     },
     setCategory ({ commit, dispatch }, category) {
-      dispatch('setArticle', null)
       commit('SET_PARAMS_CATEGORY', category)
+      dispatch('fetchSources')
       dispatch('setFilters', [])
     },
     setQuery ({ commit, dispatch }, query) {
@@ -163,9 +164,7 @@ export default new Vuex.Store({
       const inversedChannels = sources.filter((o) => !filters.includes(o))
 
       commit('SET_PARAMS_CHANNELS', inversedChannels)
-      if (!this.state.articleId) {
-        dispatch('fetchArticles')
-      }
+      dispatch('fetchArticles')
     },
     setArticle ({ commit, dispatch }, articleId) {
       commit('SET_ARTICLE_ID', articleId)
@@ -192,28 +191,20 @@ export default new Vuex.Store({
         commit('SET_LOADING_STATUS', false)
       }
     },
-    async fetchArticle (context, articleId) {
+    async fetchArticles (context, articleId) {
       context.commit('SET_LOADING_STATUS', true)
-      context.commit('SET_ARTICLE_ID', articleId)
+
+      if (articleId) {
+        context.commit('SET_ARTICLE_ID', articleId)
+      }
 
       try {
-        const result = await Vue.axios.get(this.getters.articleUrl)
-        context.commit('SET_ARTICLES', [result.data])
+        const results = await Vue.axios.get(this.getters.articlesUrl)
+        context.commit('SET_ARTICLES', results.data.results)
       } catch (error) {
         throw new Error(`API ${error}`)
       } finally {
-        context.commit('SET_LOADING_STATUS', false)
         context.commit('SET_ARTICLE_ID', null)
-      }
-    },
-    async fetchArticles (context) {
-      context.commit('SET_LOADING_STATUS', true)
-      try {
-        const result = await Vue.axios.get(this.getters.articlesUrl)
-        context.commit('SET_ARTICLES', result.data.results)
-      } catch (error) {
-        throw new Error(`API ${error}`)
-      } finally {
         context.commit('SET_LOADING_STATUS', false)
       }
     }
