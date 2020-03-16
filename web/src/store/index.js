@@ -145,8 +145,8 @@ export default new Vuex.Store({
       dispatch('fetchArticles')
     },
     setCategory ({ commit, dispatch }, category) {
+      dispatch('setArticle', null)
       commit('SET_PARAMS_CATEGORY', category)
-      dispatch('fetchSources')
       dispatch('setFilters', [])
     },
     setQuery ({ commit, dispatch }, query) {
