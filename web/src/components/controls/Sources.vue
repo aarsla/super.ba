@@ -1,15 +1,24 @@
 <template>
-  <div>
-    <a-menu mode="horizontal">
-      <a-menu-item
-        v-for="source in sourceLinks"
-        :key="source.title"
-        @click="menuClicked"
-      >
-        {{ source.title }}
-      </a-menu-item>
-    </a-menu>
-  </div>
+  <a-row
+    type="flex"
+    justify="space-around"
+    align="middle"
+  >
+    <a-col
+      :xs="0"
+      :lg="24"
+    >
+      <a-menu mode="horizontal">
+        <a-menu-item
+          v-for="source in sourceLinks"
+          :key="source.title"
+          @click="menuClicked"
+        >
+          {{ source.title }}
+        </a-menu-item>
+      </a-menu>
+    </a-col>
+  </a-row>
 </template>
 
 <script>

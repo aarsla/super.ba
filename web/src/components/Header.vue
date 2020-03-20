@@ -1,5 +1,5 @@
 <template>
-  <a-row>
+  <a-row type="flex">
     <a-col :span="1">
       <a-badge
         v-if="isWsConnected"
@@ -25,19 +25,34 @@
         justify="space-around"
         align="middle"
       >
-        <a-col :span="10">
+        <a-col
+          :xs="0"
+          :lg="10"
+        >
           <Search />
         </a-col>
-        <a-col :span="4">
+        <a-col
+          :xs="0"
+          :lg="4"
+        >
           <Date />
         </a-col>
-        <a-col :span="2">
+        <a-col
+          :xs="0"
+          :lg="2"
+        >
           <Limit />
         </a-col>
-        <a-col :span="4">
+        <a-col
+          :xs="0"
+          :lg="4"
+        >
           <Category />
         </a-col>
-        <a-col :span="1">
+        <a-col
+          :xs="1"
+          :lg="1"
+        >
           <a-button
             type="secondary"
             shape="circle"
@@ -49,7 +64,10 @@
             @hide-settings="hideSettings"
           />
         </a-col>
-        <a-col :span="1">
+        <a-col
+          :xs="0"
+          :lg="1"
+        >
           <a-button
             type="secondary"
             shape="circle"

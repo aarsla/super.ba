@@ -38,7 +38,8 @@
       align="top"
     >
       <a-col
-        :span="8"
+        :xs="24"
+        :lg="8"
       >
         <a
           class="title"
@@ -56,7 +57,10 @@
           </a-empty>
         </a>
       </a-col>
-      <a-col :span="16">
+      <a-col
+        :xs="24"
+        :lg="16"
+      >
         <div v-if="article.description">
           {{ formattedDescription }}
         </div>
@@ -170,7 +174,7 @@ export default {
 }
 
 .card .image {
-  width: 200px;
+  width: 90%;
   border-radius: 5px;
 }
 
