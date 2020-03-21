@@ -12,14 +12,20 @@
         status="default"
       />
     </a-col>
-    <a-col :span="4">
+    <a-col
+      :xs="8"
+      :lg="4"
+    >
       <div class="logo">
         <router-link to="/">
           <h1>super.ba</h1>
         </router-link>
       </div>
     </a-col>
-    <a-col :span="19">
+    <a-col
+      :xs="15"
+      :lg="19"
+    >
       <a-row
         type="flex"
         justify="space-around"
@@ -38,19 +44,19 @@
           <Date />
         </a-col>
         <a-col
-          :xs="0"
+          :xs="4"
           :lg="2"
         >
           <Limit />
         </a-col>
         <a-col
-          :xs="0"
+          :xs="10"
           :lg="4"
         >
           <Category />
         </a-col>
         <a-col
-          :xs="1"
+          :xs="2"
           :lg="1"
         >
           <a-button
