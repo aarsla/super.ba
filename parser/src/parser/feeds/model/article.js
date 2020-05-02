@@ -35,7 +35,7 @@ class Article {
   }
 
   setDescription (value) {
-    this.description = striptags(ent.decode(value))
+    this.description = value ? striptags(ent.decode(value)) : '...'
     return this
   }
 
