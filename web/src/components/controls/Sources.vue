@@ -56,4 +56,7 @@ export default {
 </script>
 
 <style scoped>
+.ant-menu-item {
+  padding: 0 15px;
+}
 </style>

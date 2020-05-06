@@ -41,6 +41,12 @@ module.exports = {
       title: 'Glas Amerike',
       url: 'https://ba.voanews.com',
       logo: 'https://ba.voanews.com/Content/responsive/VOA/bs-Latn-BA/img/logo.png'
+    },
+    {
+      _id: 9,
+      title: 'Žurnal Info',
+      url: 'https://zurnal.info',
+      logo: 'https://zurnal.info/assets/public/img/logo.png'
     }
   ]
 }
