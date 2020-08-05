@@ -20,7 +20,7 @@
     "chalk": "^3.0.0",
     "config": "^3.2.6",
     "dotenv": "^8.2.0",
-    "fastify": "^2.12.0",
+    "fastify": "^2.15.1",
     "fastify-compress": "^2.0.1",
     "fastify-cors": "^3.0.2",
     "fastify-helmet": "^3.0.2",
