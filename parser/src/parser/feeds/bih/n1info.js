@@ -21,7 +21,6 @@ class N1info {
       this.items = await baseParser(feed)
 
       for (const item of this.items) {
-        console.log(item)
         const regexResults = imageRegex.exec(item.description)
         const image = regexResults ? regexResults[1] : null
 
