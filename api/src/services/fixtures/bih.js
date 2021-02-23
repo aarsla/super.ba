@@ -26,7 +26,7 @@ module.exports = {
       _id: 5,
       title: 'Klix',
       url: 'https://klix.ba/',
-      logo: 'https://www.klix.ba/images/logo.png'
+      logo: 'https://static.klix.ba/images/klix-logo2020.png'
     }, {
       _id: 6,
       title: 'N1 Info',
