@@ -2,12 +2,14 @@ const chalk = require('chalk')
 const baseParser = require('../baseParser')
 const Article = require('../model/article')
 
-const feed = 'https://ba.n1info.com/rss/249/Naslovna'
+const feed = 'https://ba.n1info.com/feed/'
 const source = {
   title: 'N1 Info',
   url: 'https://ba.n1info.com/',
-  logo: 'https://ba.n1info.com/Static/Picture/n1v2logo.png'
+  logo: 'https://ba.n1info.com/wp-content/themes/ucnewsportal-n1/dist/assets/images/logo-header.svg'
 }
+
+const imageRegex = /(?!>)([^><]+)(?=<\/img>)/
 
 class N1info {
   constructor () {
@@ -19,11 +21,15 @@ class N1info {
       this.items = await baseParser(feed)
 
       for (const item of this.items) {
+        console.log(item)
+        const regexResults = imageRegex.exec(item.description)
+        const image = regexResults ? regexResults[1] : null
+
         const article = await new Article(item.title)
-          .setDescription(item.description)
+          .setDescription(item.summary)
           .setPubDate(item.pubDate)
           .setLink(item.link)
-          .setImage(item['rss:image']['#'])
+          .setImage(image || '')
           .setCategory({ title: 'BiH' })
           .setSource(source)
 

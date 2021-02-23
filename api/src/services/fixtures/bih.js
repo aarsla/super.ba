@@ -1,17 +1,18 @@
 module.exports = {
   results: [
+    // {
+    //   _id: 1,
+    //   title: '24sata info',
+    //   url: 'http://24sata.info',
+    //   logo: 'http://24sata.info/themes/tpl_4018/img/logo_24si.png'
+    // },
+    // {
+    //   _id: 2,
+    //   title: 'Al Jazeera Balkans',
+    //   url: 'http://balkans.aljazeera.net/',
+    //   logo: 'http://balkans.aljazeera.net/sites/default/themes/custom/ajbalkans/logo.png'
+    // },
     {
-      _id: 1,
-      title: '24sata info',
-      url: 'http://24sata.info',
-      logo: 'http://24sata.info/themes/tpl_4018/img/logo_24si.png'
-    },
-    {
-      _id: 2,
-      title: 'Al Jazeera Balkans',
-      url: 'http://balkans.aljazeera.net/',
-      logo: 'http://balkans.aljazeera.net/sites/default/themes/custom/ajbalkans/logo.png'
-    }, {
       _id: 3,
       title: 'Avaz',
       url: 'http://www.avaz.ba/',

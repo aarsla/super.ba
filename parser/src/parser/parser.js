@@ -4,10 +4,8 @@ const moment = require('moment')
 const fs = require('fs')
 const lockFile = require('lockfile')
 
-const aljazeeraParser = require('./feeds/bih/aljazeera')
 const avazParser = require('./feeds/bih/avaz')
 const cinParser = require('./feeds/bih/cin')
-const info24Parser = require('./feeds/bih/info24')
 const klixParser = require('./feeds/bih/klix')
 const n1infoParser = require('./feeds/bih/n1info')
 const radioSarajevoParser = require('./feeds/bih/radiosarajevo')
@@ -44,8 +42,6 @@ class Parser {
   async processFeeds () {
     const avaz = avazParser.process()
     const cin = cinParser.process()
-    const aljazeera = aljazeeraParser.process()
-    const info24 = info24Parser.process()
     const klix = klixParser.process()
     const n1info = n1infoParser.process()
     const radioSarajevo = radioSarajevoParser.process()
@@ -55,8 +51,6 @@ class Parser {
     const bihPromises = [
       avaz,
       cin,
-      aljazeera,
-      info24,
       klix,
       n1info,
       radioSarajevo,

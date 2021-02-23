@@ -2,11 +2,11 @@ const chalk = require('chalk')
 const baseParser = require('../baseParser')
 const Article = require('../model/article')
 
-const feed = 'https://www.klix.ba/rss/svevijesti'
+const feed = 'https://www.klix.ba/rss'
 const source = {
   title: 'Klix',
   url: 'https://klix.ba/',
-  logo: 'https://www.klix.ba/images/logo.png'
+  logo: 'https://static.klix.ba/images/klix-logo2020.png'
 }
 
 class Klix {
