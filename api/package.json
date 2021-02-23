@@ -16,7 +16,7 @@
     "amqp-connection-manager": "^3.2.0",
     "amqplib": "^0.5.5",
     "api-query-params": "^4.15.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chalk": "^3.0.0",
     "config": "^3.2.6",
     "dotenv": "^8.2.0",
