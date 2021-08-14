@@ -28,7 +28,7 @@ async function amqpConnector (fastify, options, next) {
           channel.consume(QUEUE_NAME, function (data) {
             const stringMessage = data.content.toString()
             const message = JSON.parse(stringMessage)
-            console.log(`Subscriber: ${moment(message.pubDate).format('DD MMM YYYY hh:mm')}: ${message.source.title} - ${message.title}`)
+            // console.log(`Subscriber: ${moment(message.pubDate).format('DD MMM YYYY hh:mm')}: ${message.source.title} - ${message.title}`)
 
             broadcast(fastify, message)
             channel.ack(data)

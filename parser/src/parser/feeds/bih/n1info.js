@@ -9,8 +9,6 @@ const source = {
   logo: 'https://ba.n1info.com/wp-content/themes/ucnewsportal-n1/dist/assets/images/logo-header.svg'
 }
 
-const imageRegex = /(?!>)([^><]+)(?=<\/img>)/
-
 class N1info {
   constructor () {
     this.items = []
@@ -21,14 +19,11 @@ class N1info {
       this.items = await baseParser(feed)
 
       for (const item of this.items) {
-        const regexResults = imageRegex.exec(item.description)
-        const image = regexResults ? regexResults[1] : null
-
         const article = await new Article(item.title)
           .setDescription(item.summary)
           .setPubDate(item.pubDate)
           .setLink(item.link)
-          .setImage(image || '')
+          .setImage(item['content:encoded']['img']['#'])
           .setCategory({ title: 'BiH' })
           .setSource(source)
 
@@ -37,7 +32,7 @@ class N1info {
     } catch (error) {
       console.log(chalk.bold.red(`${this.constructor.name}: ${error.message}`))
     } finally {
-      console.log(chalk.gray(`${this.constructor.name} done`))
+      // console.log(chalk.gray(`${this.constructor.name} done`))
     }
   }
 }

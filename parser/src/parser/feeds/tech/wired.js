@@ -33,7 +33,7 @@ class Wired {
     } catch (error) {
       console.log(chalk.bold.red(`${this.constructor.name}: ${error.message}`))
     } finally {
-      console.log(chalk.gray(`${this.constructor.name} done`))
+      // console.log(chalk.gray(`${this.constructor.name} done`))
     }
   }
 }
