@@ -8,9 +8,9 @@ const avazParser = require('./feeds/bih/avaz')
 const cinParser = require('./feeds/bih/cin')
 const klixParser = require('./feeds/bih/klix')
 const n1infoParser = require('./feeds/bih/n1info')
+const raportParser = require('./feeds/bih/raport')
 const radioSarajevoParser = require('./feeds/bih/radiosarajevo')
 const voaParser = require('./feeds/bih/voa')
-const zurnalParser = require('./feeds/bih/zurnal')
 
 const cnetParser = require('./feeds/tech/cnet')
 const enadgetParser = require('./feeds/tech/engadget')
@@ -44,18 +44,18 @@ class Parser {
     const cin = cinParser.process()
     const klix = klixParser.process()
     const n1info = n1infoParser.process()
+    const raport = raportParser.process()
     const radioSarajevo = radioSarajevoParser.process()
     const voa = voaParser.process()
-    const zurnal = zurnalParser.process()
 
     const bihPromises = [
       avaz,
       cin,
       klix,
       n1info,
+      raport,
       radioSarajevo,
       voa,
-      zurnal
     ]
 
     const cnet = cnetParser.process()

@@ -39,15 +39,14 @@ module.exports = {
       logo: 'http://www.radiosarajevo.ba//build/img/logo-s.png'
     }, {
       _id: 8,
+      title: 'Raport',
+      url: 'https://raport.ba',
+      logo: 'https://raport.ba/wp-content/uploads/2021/04/raport-logo-trans.png'
+    }, {
+      _id: 9,
       title: 'Glas Amerike',
       url: 'https://ba.voanews.com',
       logo: 'https://ba.voanews.com/Content/responsive/VOA/bs-Latn-BA/img/logo.png'
     },
-    {
-      _id: 9,
-      title: 'Žurnal Info',
-      url: 'https://zurnal.info',
-      logo: 'https://zurnal.info/assets/public/img/logo.png'
-    }
   ]
 }

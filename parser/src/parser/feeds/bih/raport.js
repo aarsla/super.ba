@@ -2,14 +2,14 @@ const chalk = require('chalk')
 const baseParser = require('../baseParser')
 const Article = require('../model/article')
 
-const feed = 'https://zurnal.info/rss'
+const feed = 'https://raport.ba/feed'
 const source = {
-  title: 'Žurnal Info',
-  url: 'https://zurnal.info',
-  logo: 'https://zurnal.info/assets/public/img/logo.png'
+  title: 'Raport',
+  url: 'https://raport.ba/',
+  logo: 'https://raport.ba/wp-content/uploads/2021/04/raport-logo-trans.png'
 }
 
-class Zurnal {
+class Raport {
   constructor () {
     this.items = []
   }
@@ -19,11 +19,11 @@ class Zurnal {
       this.items = await baseParser(feed)
 
       for (const item of this.items) {
-        const article = new Article(item.title)
+        const article = await new Article(item.title)
           .setDescription(item.description)
           .setPubDate(item.pubDate)
           .setLink(item.link)
-          .setImage(item.enclosures ? item.enclosures[0].url : '')
+          .setImage(null)
           .setCategory({ title: 'BiH' })
           .setSource(source)
 
@@ -37,4 +37,4 @@ class Zurnal {
   }
 }
 
-module.exports = new Zurnal()
+module.exports = new Raport()
