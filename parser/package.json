@@ -24,7 +24,7 @@
     "feedparser": "^2.2.9",
     "iconv": "^2.3.5",
     "lockfile": "^1.0.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.9.1",
     "string-to-stream": "^3.0.1",
     "striptags": "^3.2.0",
